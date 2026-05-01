@@ -1,11 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tableau de bord financier</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Tableau de bord</h1>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item active">Budget</a>
+                <a href="transactions.html" class="menu-item">Transactions</a>
+                <a href="goals.html" class="menu-item">Objectifs</a>
+                <a href="reports.html" class="menu-item">Rapports</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header with Date -->
+            <div class="header">
+                <h2>Bonjour</h2>
+                <p>Aperçu rapide de vos finances</p>
+                <div class="date-selector">
+                    <button class="nav-btn" id="prevMonth">‹</button>
+                    <span class="month-year" id="monthYear">Avril 2026</span>
+                    <button class="nav-btn" id="nextMonth">›</button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card solde">
+                    <h3>SOLDE ACTUEL</h3>
+                    <div class="amount">450 000 Ar</div>
+                    <p class="change positive">+5,2 % vs mois dernier</p>
+                </div>
+                <div class="stat-card revenus">
+                    <h3>REVENUS</h3>
+                    <div class="amount">1 500 000 Ar</div>
+                    <p class="change">3 entrées ce mois</p>
+                </div>
+                <div class="stat-card depenses">
+                    <h3>DÉPENSES</h3>
+                    <div class="amount">1 050 000 Ar</div>
+                    <p class="change">17 transactions</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <!-- Pie Chart -->
+                <div class="chart-card">
+                    <h3>Répartition des dépenses</h3>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #5B7FD4;"></span>
+                            <span>Logement</span>
+                            <span class="amount">470 000 Ar</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #1BC47D;"></span>
+                            <span>Transport</span>
+                            <span class="amount">210 000 Ar</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #FFA500;"></span>
+                            <span>Loisirs</span>
+                            <span class="amount">158 000 Ar</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #9B59B6;"></span>
+                            <span>Alimentation</span>
+                            <span class="amount">126 000 Ar</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #8B96A8;"></span>
+                            <span>Autre</span>
+                            <span class="amount">86 000 Ar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming & Objectives -->
+                <div class="right-section">
+                    <!-- Coming Week -->
+                    <div class="card upcoming-card">
+                        <h3>À venir cette semaine</h3>
+                        <div class="upcoming-list">
+                            <div class="upcoming-item">
+                                <div class="item-left">
+                                    <span class="dot loyer"></span>
+                                    <div class="item-info">
+                                        <p>Loyer</p>
+                                        <span class="date">02 mai · dans 3 jours</span>
+                                    </div>
+                                </div>
+                                <p class="amount negative">−600 000 Ar</p>
+                            </div>
+                            <div class="upcoming-item">
+                                <div class="item-left">
+                                    <span class="dot netflix"></span>
+                                    <div class="item-info">
+                                        <p>Netflix</p>
+                                        <span class="date">05 mai · dans 6 jours</span>
+                                    </div>
+                                </div>
+                                <p class="amount negative">−32 000 Ar</p>
+                            </div>
+                            <div class="upcoming-item">
+                                <div class="item-left">
+                                    <span class="dot credit"></span>
+                                    <div class="item-info">
+                                        <p>Crédit voiture</p>
+                                        <span class="date">07 mai · dans 8 jours</span>
+                                    </div>
+                                </div>
+                                <p class="amount negative">−180 000 Ar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Objectives -->
+                    <div class="card objectives-card">
+                        <h3>Mes objectifs</h3>
+                        <div class="objective-item">
+                            <div class="objective-header">
+                                <p class="objective-title">Vacances été</p>
+                                <span class="percentage">62 %</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 62%;"></div>
+                            </div>
+                            <p class="objective-text">1 550 000 Ar sur 2 500 000 Ar</p>
+                        </div>
+                        <div class="objective-item">
+                            <div class="objective-header">
+                                <p class="objective-title">Nouvel ordinateur</p>
+                                <span class="percentage">28 %</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 28%;"></div>
+                            </div>
+                            <p class="objective-text">1 120 000 Ar sur 4 000 000 Ar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Floating Action Button -->
+    <a href="addTransaction.html" class="fab">+</a>
+
+    <script src="../js/main.js"></script>
 </body>
 </html>

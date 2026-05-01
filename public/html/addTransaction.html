@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Transaction - Finance Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/addTransaction.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Tableau de bord</h1>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">Budget</a>
+                <a href="transactions.html" class="menu-item active">Transactions</a>
+                <a href="goals.html" class="menu-item">Objectifs</a>
+                <a href="reports.html" class="menu-item">Rapports</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Ajouter une Transaction</h2>
+                <p>Enregistrez une nouvelle transaction</p>
+            </div>
+
+            <!-- Transaction Form -->
+            <div class="form-container">
+                <form class="transaction-form" id="transactionForm">
+                    <!-- Transaction Type Selection -->
+                    <div class="form-section">
+                        <label class="section-title">Type de Transaction</label>
+                        <div class="type-selector">
+                            <div class="type-option" data-type="income">
+                                <span class="type-icon">💰</span>
+                                <p>Revenu</p>
+                            </div>
+                            <div class="type-option active" data-type="expense">
+                                <span class="type-icon">💸</span>
+                                <p>Dépense</p>
+                            </div>
+                            <div class="type-option" data-type="transfer">
+                                <span class="type-icon">🔄</span>
+                                <p>Transfert</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="transactionType" name="type" value="expense">
+                    </div>
+
+                    <!-- Category Selection -->
+                    <div class="form-section">
+                        <label for="category" class="section-title">Catégorie</label>
+                        <select id="category" name="category" class="form-select" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <optgroup label="Dépenses Courantes">
+                                <option value="housing">🏠 Logement</option>
+                                <option value="transport">🚗 Transport</option>
+                                <option value="food">🍔 Alimentation</option>
+                                <option value="utilities">💡 Électricité & Eau</option>
+                                <option value="entertainment">🎬 Divertissement</option>
+                            </optgroup>
+                            <optgroup label="Autres Catégories">
+                                <option value="shopping">🛍️ Shopping</option>
+                                <option value="health">🏥 Santé</option>
+                                <option value="education">📚 Éducation</option>
+                                <option value="other">📌 Autre</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="form-section">
+                        <label for="amount" class="section-title">Montant</label>
+                        <div class="amount-input-group">
+                            <span class="currency">Ar</span>
+                            <input 
+                                type="number" 
+                                id="amount" 
+                                name="amount" 
+                                placeholder="0.00" 
+                                step="0.01" 
+                                min="0"
+                                required
+                                class="form-input amount-input"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-section">
+                        <label for="date" class="section-title">Date</label>
+                        <input 
+                            type="date" 
+                            id="date" 
+                            name="date" 
+                            required
+                            class="form-input"
+                        >
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <label for="paymentMethod" class="section-title">Méthode de Paiement</label>
+                        <select id="paymentMethod" name="paymentMethod" class="form-select" required>
+                            <option value="">Sélectionner une méthode</option>
+                            <option value="cash">💵 Espèces</option>
+                            <option value="bank">🏦 Compte Bancaire</option>
+                            <option value="card">💳 Carte Bancaire</option>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-section">
+                        <label for="description" class="section-title">Description (Optionnel)</label>
+                        <textarea 
+                            id="description" 
+                            name="description" 
+                            placeholder="Ajouter une note ou description..."
+                            class="form-textarea"
+                            rows="4"
+                        ></textarea>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="form-section">
+                        <label class="section-title">Tags (Optionnel)</label>
+                        <div class="tags-input">
+                            <input 
+                                type="text" 
+                                id="tagInput" 
+                                class="tag-input-field"
+                                placeholder="Ajouter un tag et appuyer sur Entrée"
+                            >
+                            <div class="tags-list" id="tagsList"></div>
+                        </div>
+                    </div>
+
+                    <!-- Recurring -->
+                    <div class="form-section">
+                        <div class="recurring-checkbox">
+                            <input 
+                                type="checkbox" 
+                                id="recurring" 
+                                name="recurring"
+                                class="checkbox-input"
+                            >
+                            <label for="recurring" class="checkbox-label">
+                                <span>Transactions récurrente</span>
+                                <p>Cette transaction se répète chaque mois</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Recurring Frequency (Hidden by default) -->
+                    <div class="form-section" id="frequencySection" style="display: none;">
+                        <label for="frequency" class="section-title">Fréquence de Récurrence</label>
+                        <select id="frequency" name="frequency" class="form-select">
+                            <option value="monthly">📅 Mensuel</option>
+                            <option value="weekly">📆 Hebdomadaire</option>
+                            <option value="yearly">📋 Annuel</option>
+                        </select>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <a href="transactions.html" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">Ajouter la Transaction</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Recent Transactions Preview -->
+            <div class="recent-preview">
+                <h3>Transactions Récentes</h3>
+                <div class="mini-transactions">
+                    <div class="mini-transaction-item income">
+                        <div class="mini-transaction-info">
+                            <p class="mini-transaction-category">💼 Salaire</p>
+                            <span class="mini-transaction-date">Aujourd'hui</span>
+                        </div>
+                        <p class="mini-transaction-amount">+500 000 Ar</p>
+                    </div>
+                    <div class="mini-transaction-item expense">
+                        <div class="mini-transaction-info">
+                            <p class="mini-transaction-category">🛒 Supermarché</p>
+                            <span class="mini-transaction-date">Aujourd'hui</span>
+                        </div>
+                        <p class="mini-transaction-amount">−45 000 Ar</p>
+                    </div>
+                    <div class="mini-transaction-item expense">
+                        <div class="mini-transaction-info">
+                            <p class="mini-transaction-category">⛽ Carburant</p>
+                            <span class="mini-transaction-date">Hier</span>
+                        </div>
+                        <p class="mini-transaction-amount">−32 000 Ar</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/addTransaction.js"></script>
+</body>
+</html>

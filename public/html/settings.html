@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Finance Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/settings.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Tableau de bord</h1>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">Budget</a>
+                <a href="transactions.html" class="menu-item">Transactions</a>
+                <a href="goals.html" class="menu-item">Objectifs</a>
+                <a href="reports.html" class="menu-item">Rapports</a>
+                <a href="settings.html" class="menu-item active">Paramètres</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Paramètres</h2>
+                <p>Configurer votre application Finance Manager</p>
+            </div>
+
+            <div class="settings-container">
+                <!-- Appearance Settings -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Apparence</h3>
+                        <p>Personnalisez l'apparence de l'application</p>
+                    </div>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Thème</p>
+                                <p class="setting-description">Choisir le mode clair ou sombre</p>
+                            </div>
+                            <select class="setting-select">
+                                <option>Mode Clair</option>
+                                <option>Mode Sombre</option>
+                                <option>Auto</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Langue</p>
+                                <p class="setting-description">Sélectionner votre langue</p>
+                            </div>
+                            <select class="setting-select">
+                                <option>Français</option>
+                                <option>English</option>
+                                <option>Español</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Taille de la Police</p>
+                                <p class="setting-description">Ajuster la taille du texte</p>
+                            </div>
+                            <div class="slider-group">
+                                <input type="range" min="12" max="18" value="14" class="slider">
+                                <span class="slider-value">14px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Notifications</h3>
+                        <p>Gérer vos préférences de notification</p>
+                    </div>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Notifications par Email</p>
+                                <p class="setting-description">Recevoir des mises à jour par email</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="email-notifications" checked>
+                                <label for="email-notifications"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Alertes de Transactions</p>
+                                <p class="setting-description">Recevoir une notification pour chaque transaction</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="transaction-alerts" checked>
+                                <label for="transaction-alerts"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Alertes de Budget</p>
+                                <p class="setting-description">Recevoir une alerte si vous dépassez votre budget</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="budget-alerts" checked>
+                                <label for="budget-alerts"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Rappels d'Objectifs</p>
+                                <p class="setting-description">Recevoir des rappels pour vos goal financiers</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="goal-reminders" checked>
+                                <label for="goal-reminders"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Sécurité</h3>
+                        <p>Sécuriser votre compte et vos données</p>
+                    </div>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Authentification à Deux Facteurs</p>
+                                <p class="setting-description">Ajouter une couche supplémentaire de sécurité</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="two-factor" checked>
+                                <label for="two-factor"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Reconnexion Automatique</p>
+                                <p class="setting-description">Se reconnecter automatiquement après 30 minutes</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="auto-logout">
+                                <label for="auto-logout"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-secondary">Changer le Mot de Passe</button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-secondary">Voir les Appareils Connectés</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Settings -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Données et Confidentialité</h3>
+                        <p>Gérer vos données personnelles</p>
+                    </div>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Partage des Données Anonymisées</p>
+                                <p class="setting-description">Aider à améliorer notre service</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="data-sharing">
+                                <label for="data-sharing"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Historique Automatique</p>
+                                <p class="setting-description">Conserver automatiquement l'historique pendant 90 jours</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="auto-history" checked>
+                                <label for="auto-history"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-secondary">Télécharger mes Données</button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-secondary">Exporter les Transactions</button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-secondary">Effacer l'Historique</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integration Settings -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Intégrations</h3>
+                        <p>Connecter d'autres services</p>
+                    </div>
+                    <div class="settings-list">
+                        <div class="integration-item">
+                            <div class="integration-icon">📊</div>
+                            <div class="integration-info">
+                                <p class="integration-name">Google Sheets</p>
+                                <p class="integration-description">Synchroniser vos données avec Google Sheets</p>
+                            </div>
+                            <button class="btn-secondary">Connecter</button>
+                        </div>
+                        <div class="integration-item">
+                            <div class="integration-icon">📈</div>
+                            <div class="integration-info">
+                                <p class="integration-name">Excel</p>
+                                <p class="integration-description">Exporter vos données vers Excel</p>
+                            </div>
+                            <button class="btn-secondary">Configurer</button>
+                        </div>
+                        <div class="integration-item">
+                            <div class="integration-icon">🏦</div>
+                            <div class="integration-info">
+                                <p class="integration-name">Banque (API)</p>
+                                <p class="integration-description">Connecter votre compte bancaire</p>
+                            </div>
+                            <button class="btn-secondary">Configurer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Section -->
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>À propos</h3>
+                        <p>Informations sur l'application</p>
+                    </div>
+                    <div class="about-content">
+                        <div class="about-item">
+                            <p class="about-label">Version</p>
+                            <p class="about-value">1.0.0</p>
+                        </div>
+                        <div class="about-item">
+                            <p class="about-label">Dernière mise à jour</p>
+                            <p class="about-value">30 avril 2026</p>
+                        </div>
+                        <div class="about-item">
+                            <button class="btn-secondary">Conditions d'Utilisation</button>
+                            <button class="btn-secondary">Politique de Confidentialité</button>
+                            <button class="btn-secondary">À propos de Nous</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="settings-footer">
+                    <button class="btn-primary">Enregistrer les Modifications</button>
+                    <button class="btn-tertiary">Réinitialiser par Défaut</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/settings.js"></script>
+</body>
+</html>

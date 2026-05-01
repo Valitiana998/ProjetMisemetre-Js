@@ -1,0 +1,251 @@
+/* Settings Page Styles */
+.settings-container {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.settings-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.section-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fc 0%, #f0f3f7 100%);
+    border-bottom: 1px solid #e0e5ed;
+}
+
+.section-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0a0e27;
+    margin-bottom: 4px;
+}
+
+.section-header p {
+    font-size: 12px;
+    color: #8a92a8;
+}
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    divide-y: 1px solid #f0f3f7;
+}
+
+.setting-item {
+    padding: 20px;
+    border-bottom: 1px solid #f0f3f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item:hover {
+    background: #f8f9fc;
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0a0e27;
+    margin-bottom: 4px;
+}
+
+.setting-description {
+    font-size: 12px;
+    color: #8a92a8;
+}
+
+.setting-select {
+    padding: 8px 12px;
+    border: 1px solid #e0e5ed;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.slider-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 150px;
+}
+
+.slider {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e5ed;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #5b7fd4;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #4a6cbd;
+    box-shadow: 0 2px 6px rgba(91, 127, 212, 0.4);
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #5b7fd4;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+    background: #4a6cbd;
+    box-shadow: 0 2px 6px rgba(91, 127, 212, 0.4);
+}
+
+.slider-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0a0e27;
+    min-width: 40px;
+}
+
+.integration-item {
+    padding: 20px;
+    border-bottom: 1px solid #f0f3f7;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.3s ease;
+}
+
+.integration-item:last-child {
+    border-bottom: none;
+}
+
+.integration-item:hover {
+    background: #f8f9fc;
+}
+
+.integration-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.integration-info {
+    flex: 1;
+}
+
+.integration-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0a0e27;
+    margin-bottom: 4px;
+}
+
+.integration-description {
+    font-size: 12px;
+    color: #8a92a8;
+}
+
+.about-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fc;
+    border-radius: 8px;
+}
+
+.about-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #8a92a8;
+}
+
+.about-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0a0e27;
+}
+
+.about-item:last-child {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    background: transparent;
+}
+
+.about-item .btn-secondary {
+    width: 100%;
+}
+
+.settings-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.settings-footer button {
+    min-width: 200px;
+}
+
+@media (max-width: 768px) {
+    .settings-container {
+        max-width: 100%;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .setting-select,
+    .slider-group {
+        width: 100%;
+    }
+
+    .slider-group {
+        min-width: unset;
+    }
+
+    .integration-item {
+        flex-wrap: wrap;
+    }
+
+    .integration-item button {
+        flex: 0 0 100%;
+    }
+}

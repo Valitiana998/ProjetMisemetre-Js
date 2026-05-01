@@ -1,0 +1,160 @@
+/* Goals Page Styles */
+.goals-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.goal-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.goal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.goal-card.active {
+    border: 2px solid #5b7fd4;
+}
+
+.goal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fc 0%, #f0f3f7 100%);
+}
+
+.goal-title h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0a0e27;
+    margin-bottom: 4px;
+}
+
+.goal-date {
+    font-size: 12px;
+    color: #8a92a8;
+}
+
+.goal-icon {
+    font-size: 32px;
+}
+
+.goal-progress {
+    padding: 20px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.progress-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #5b7fd4;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #8a92a8;
+}
+
+.progress-bar.large {
+    height: 12px;
+    margin: 16px 0;
+}
+
+.goal-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.goal-stat {
+    text-align: center;
+    padding: 12px;
+    background: #f8f9fc;
+    border-radius: 8px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #8a92a8;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0a0e27;
+}
+
+.goal-actions {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 20px 20px;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 10px;
+    background: white;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #7a8998;
+}
+
+.btn-secondary:hover {
+    border-color: #5b7fd4;
+    color: #5b7fd4;
+    background: #f8f9fc;
+}
+
+.btn-tertiary {
+    flex: 1;
+    padding: 10px;
+    background: #f8f9fc;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #7a8998;
+}
+
+.btn-tertiary:hover {
+    background: #f0f3f7;
+}
+
+.btn-danger {
+    flex: 1;
+    padding: 10px;
+    background: white;
+    border: 1px solid #fee2e2;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    color: #ef4444;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: #fee2e2;
+}

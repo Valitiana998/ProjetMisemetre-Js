@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Finance Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Tableau de bord</h1>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">Budget</a>
+                <a href="transactions.html" class="menu-item">Transactions</a>
+                <a href="goals.html" class="menu-item">Objectifs</a>
+                <a href="reports.html" class="menu-item">Rapports</a>
+                <a href="profile.html" class="menu-item active">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Mon Profil</h2>
+                <p>Gère tes informations personnelles</p>
+            </div>
+
+            <div class="profile-container">
+                <!-- Profile Header -->
+                <div class="profile-card">
+                    <div class="profile-banner"></div>
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Jean+Dupont&background=5b7fd4&color=fff" alt="Avatar">
+                        </div>
+                        <div class="profile-details">
+                            <h2>Jean Dupont</h2>
+                            <p class="profile-email">jean.dupont@email.com</p>
+                            <p class="profile-joined">Membre depuis janvier 2024</p>
+                        </div>
+                        <button class="btn-secondary">Modifier le Profil</button>
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="info-section">
+                    <h3>Informations Personnelles</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Prénom</label>
+                            <p>Jean</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Nom</label>
+                            <p>Dupont</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <p>jean.dupont@email.com</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Téléphone</label>
+                            <p>+261 32 12 34 56</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Adresse</label>
+                            <p>Antananarivo, Madagascar</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Devise</label>
+                            <p>Ariary (Ar)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="info-section">
+                    <h3>Paramètres du Compte</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Sécurité du Compte</p>
+                                <p class="setting-description">Changer le mot de passe</p>
+                            </div>
+                            <button class="btn-secondary">Modifier</button>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Authentification à Deux Facteurs</p>
+                                <p class="setting-description">Sécuriser votre compte avec 2FA</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="twofa" checked>
+                                <label for="twofa"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Notifications par Email</p>
+                                <p class="setting-description">Recevoir des alertes de transactions</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="email-notif" checked>
+                                <label for="email-notif"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Notifications Push</p>
+                                <p class="setting-description">Recevoir des notifications mobiles</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="push-notif" checked>
+                                <label for="push-notif"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy -->
+                <div class="info-section">
+                    <h3>Confidentialité et Données</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <p class="setting-label">Partage des Données</p>
+                                <p class="setting-description">Permettre l'analyse anonyme des données</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="data-sharing">
+                                <label for="data-sharing"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-secondary">Télécharger mes Données</button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="btn-tertiary">Supprimer le compte</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="info-section">
+                    <h3>Statistiques du Compte</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <p class="stat-label">Total des Transactions</p>
+                            <p class="stat-value">247</p>
+                        </div>
+                        <div class="stat-item">
+                            <p class="stat-label">Budgets Créés</p>
+                            <p class="stat-value">6</p>
+                        </div>
+                        <div class="stat-item">
+                            <p class="stat-label">Objectifs Atteints</p>
+                            <p class="stat-value">3</p>
+                        </div>
+                        <div class="stat-item">
+                            <p class="stat-label">Économies Totales</p>
+                            <p class="stat-value">4 750 000 Ar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/profile.js"></script>
+</body>
+</html>

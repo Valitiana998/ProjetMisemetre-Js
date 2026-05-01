@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapports - Finance Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/reports.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Tableau de bord</h1>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">Budget</a>
+                <a href="transactions.html" class="menu-item">Transactions</a>
+                <a href="goals.html" class="menu-item">Objectifs</a>
+                <a href="reports.html" class="menu-item active">Rapports</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Rapports et Analyses</h2>
+                <p>Analysez vos habitudes de dépenses</p>
+                <div class="report-filters">
+                    <select class="filter-select">
+                        <option>Ce mois</option>
+                        <option>Les 3 derniers mois</option>
+                        <option>6 derniers mois</option>
+                        <option>Cette année</option>
+                    </select>
+                    <button class="btn-primary">Télécharger</button>
+                </div>
+            </div>
+
+            <div class="reports-container">
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <h3>Revenus vs Dépenses</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Répartition des Dépenses</h3>
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <h3>Tendance des Dépenses (derniers 6 mois)</h3>
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-row">
+                    <div class="stat-report-card">
+                        <p class="stat-label">Dépense Moyenne Quotidienne</p>
+                        <p class="stat-value">35 000 Ar</p>
+                        <p class="stat-change">+5% vs mois précédent</p>
+                    </div>
+                    <div class="stat-report-card">
+                        <p class="stat-label">Catégorie Top</p>
+                        <p class="stat-value">Logement</p>
+                        <p class="stat-change">57% du total</p>
+                    </div>
+                    <div class="stat-report-card">
+                        <p class="stat-label">Économies Totales</p>
+                        <p class="stat-value">450 000 Ar</p>
+                        <p class="stat-change">+12% vs mois précédent</p>
+                    </div>
+                    <div class="stat-report-card">
+                        <p class="stat-label">Taux d'Épargne</p>
+                        <p class="stat-value">23%</p>
+                        <p class="stat-change">Bon objectif</p>
+                    </div>
+                </div>
+
+                <!-- Detailed Category Report -->
+                <div class="category-report">
+                    <h3>Dépenses par Catégorie</h3>
+                    <div class="category-table">
+                        <div class="category-row header">
+                            <div class="category-name">Catégorie</div>
+                            <div class="category-amount">Montant</div>
+                            <div class="category-percent">Pourcentage</div>
+                            <div class="category-change">Changement</div>
+                        </div>
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot" style="background: #5b7fd4;"></span>
+                                Logement
+                            </div>
+                            <div class="category-amount">600 000 Ar</div>
+                            <div class="category-percent">57%</div>
+                            <div class="category-change positive">+2%</div>
+                        </div>
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot" style="background: #1bc47d;"></span>
+                                Transport
+                            </div>
+                            <div class="category-amount">210 000 Ar</div>
+                            <div class="category-percent">20%</div>
+                            <div class="category-change">0%</div>
+                        </div>
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot" style="background: #ffa500;"></span>
+                                Loisirs
+                            </div>
+                            <div class="category-amount">158 000 Ar</div>
+                            <div class="category-percent">15%</div>
+                            <div class="category-change negative">-3%</div>
+                        </div>
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot" style="background: #9b59b6;"></span>
+                                Alimentation
+                            </div>
+                            <div class="category-amount">126 000 Ar</div>
+                            <div class="category-percent">12%</div>
+                            <div class="category-change positive">+1%</div>
+                        </div>
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot" style="background: #8b96a8;"></span>
+                                Autre
+                            </div>
+                            <div class="category-amount">86 000 Ar</div>
+                            <div class="category-percent">8%</div>
+                            <div class="category-change negative">-2%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/reports.js"></script>
+</body>
+</html>

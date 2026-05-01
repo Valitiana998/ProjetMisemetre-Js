@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Finance Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/transactions.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Tableau de bord</h1>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">Budget</a>
+                <a href="transactions.html" class="menu-item active">Transactions</a>
+                <a href="goals.html" class="menu-item">Objectifs</a>
+                <a href="reports.html" class="menu-item">Rapports</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <div class="header-top">
+                    <h2>Transactions</h2>
+                    <p>Historique de vos transactions</p>
+                </div>
+                <div class="header-actions">
+                    <a href="addTransaction.html" class="btn-primary">+ Ajouter</a>
+                </div>
+            </div>
+
+            <div class="transactions-container">
+                <div class="transactions-list">
+                    <div class="transaction-item revenus">
+                        <div class="transaction-icon">
+                            <span class="icon">↓</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Salaire</p>
+                            <p class="transaction-date">28 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount positive">+1 500 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item depenses">
+                        <div class="transaction-icon">
+                            <span class="icon">🏠</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Loyer</p>
+                            <p class="transaction-date">27 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount negative">−600 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item depenses">
+                        <div class="transaction-icon">
+                            <span class="icon">🚗</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Carburant</p>
+                            <p class="transaction-date">25 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount negative">−85 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item depenses">
+                        <div class="transaction-icon">
+                            <span class="icon">🛒</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Épicerie</p>
+                            <p class="transaction-date">23 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount negative">−45 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item depenses">
+                        <div class="transaction-icon">
+                            <span class="icon">🎬</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Netflix</p>
+                            <p class="transaction-date">21 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount negative">−32 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item revenus">
+                        <div class="transaction-icon">
+                            <span class="icon">↓</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Freelance</p>
+                            <p class="transaction-date">20 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount positive">+200 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item depenses">
+                        <div class="transaction-icon">
+                            <span class="icon">👕</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Shopping</p>
+                            <p class="transaction-date">18 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount negative">−120 000 Ar</div>
+                    </div>
+
+                    <div class="transaction-item depenses">
+                        <div class="transaction-icon">
+                            <span class="icon">🏥</span>
+                        </div>
+                        <div class="transaction-info">
+                            <p class="transaction-title">Pharmacie</p>
+                            <p class="transaction-date">15 avril 2026</p>
+                        </div>
+                        <div class="transaction-amount negative">−32 500 Ar</div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <span>...</span>
+                    <button class="pagination-btn">10</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/transactions.js"></script>
+</body>
+</html>

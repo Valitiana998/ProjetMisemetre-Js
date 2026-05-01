@@ -1,0 +1,399 @@
+/* Add Transaction Styles */
+
+.form-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    margin-bottom: 30px;
+    max-width: 700px;
+}
+
+.transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Form Sections */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0a0e27;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Type Selector */
+.type-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.type-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px solid #e0e5ed;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-option:hover {
+    border-color: #5b7fd4;
+    background-color: #f0f3f7;
+    transform: translateY(-2px);
+}
+
+.type-option.active {
+    border-color: #5b7fd4;
+    background-color: #e5ecf5;
+}
+
+.type-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.type-option p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0a0e27;
+}
+
+/* Form Inputs */
+.form-input,
+.form-select,
+.form-textarea {
+    padding: 12px 14px;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #0a0e27;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #5b7fd4;
+    box-shadow: 0 0 0 3px rgba(91, 127, 212, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #8a92a8;
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235b7fd4' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* Amount Input */
+.amount-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+    padding: 0 14px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.amount-input-group:focus-within {
+    border-color: #5b7fd4;
+    box-shadow: 0 0 0 3px rgba(91, 127, 212, 0.1);
+}
+
+.currency {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8a92a8;
+    white-space: nowrap;
+}
+
+.amount-input {
+    flex: 1;
+    border: none;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.amount-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Textarea */
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Tags Input */
+.tags-input {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tag-input-field {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.tag-input-field:focus {
+    outline: none;
+    border-color: #5b7fd4;
+    box-shadow: 0 0 0 3px rgba(91, 127, 212, 0.1);
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: #e5ecf5;
+    color: #5b7fd4;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.tag-remove {
+    background: none;
+    border: none;
+    color: #5b7fd4;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    line-height: 1;
+}
+
+.tag-remove:hover {
+    color: #4a6cbd;
+}
+
+/* Checkbox for Recurring */
+.recurring-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.checkbox-input {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #5b7fd4;
+}
+
+.checkbox-label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0a0e27;
+}
+
+.checkbox-label p {
+    font-size: 12px;
+    color: #8a92a8;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #e0e5ed;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #5b7fd4 0%, #4a6cbd 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(91, 127, 212, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(91, 127, 212, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background-color: #f0f3f7;
+    color: #0a0e27;
+    border: 1px solid #e0e5ed;
+}
+
+.btn-secondary:hover {
+    background-color: #e5ecf5;
+    border-color: #5b7fd4;
+    color: #5b7fd4;
+}
+
+/* Recent Preview */
+.recent-preview {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    max-width: 700px;
+}
+
+.recent-preview h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0a0e27;
+    margin-bottom: 16px;
+}
+
+.mini-transactions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mini-transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: #f8fafc;
+    border-left: 4px solid #e0e5ed;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.mini-transaction-item.income {
+    border-left-color: #1bc47d;
+    background-color: #f0fdf7;
+}
+
+.mini-transaction-item.expense {
+    border-left-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.mini-transaction-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.mini-transaction-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mini-transaction-category {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0a0e27;
+}
+
+.mini-transaction-date {
+    font-size: 11px;
+    color: #8a92a8;
+}
+
+.mini-transaction-amount {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mini-transaction-item.income .mini-transaction-amount {
+    color: #1bc47d;
+}
+
+.mini-transaction-item.expense .mini-transaction-amount {
+    color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    .type-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .recent-preview {
+        max-width: 100%;
+    }
+}
