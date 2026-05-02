@@ -6,13 +6,13 @@
 .page-header h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #0a0e27;
+    color: #e0e0e0;
     margin-bottom: 4px;
 }
 
 .page-header p {
     font-size: 14px;
-    color: #8a92a8;
+    color: #a0a0a0;
     margin-bottom: 20px;
 }
 
@@ -26,26 +26,30 @@
     flex: 1;
     min-width: 200px;
     padding: 10px 16px;
-    border: 1px solid #e0e5ed;
+    border: 1px solid #424249;
     border-radius: 8px;
     font-size: 13px;
+    background-color: #383841;
+    color: #e0e0e0;
 }
 
 .search-input::placeholder {
-    color: #8a92a8;
+    color: #a0a0a0;
 }
 
 .filter-select {
     padding: 10px 16px;
-    border: 1px solid #e0e5ed;
+    border: 1px solid #424249;
     border-radius: 8px;
     font-size: 13px;
     cursor: pointer;
+    background-color: #383841;
+    color: #e0e0e0;
 }
 
 .btn-primary {
     padding: 10px 20px;
-    background: linear-gradient(135deg, #5b7fd4 0%, #4a6cbd 100%);
+    background: linear-gradient(135deg, #6ba0ff 0%, #5a8ee8 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -60,10 +64,11 @@
 }
 
 .transactions-container {
-    background: white;
+    background: #2d2d33;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    border: 1px solid #424249;
 }
 
 .transactions-list {
@@ -75,7 +80,7 @@
     align-items: center;
     gap: 16px;
     padding: 16px;
-    border-bottom: 1px solid #f0f3f7;
+    border-bottom: 1px solid #424249;
     transition: background-color 0.3s ease;
 }
 
@@ -84,7 +89,7 @@
 }
 
 .transaction-item:hover {
-    background-color: #f8f9fc;
+    background-color: #383841;
 }
 
 .transaction-icon {
@@ -98,11 +103,13 @@
 }
 
 .transaction-item.revenus .transaction-icon {
-    background-color: #d1fae5;
+    background-color: #1bc47d33;
+    color: #1bc47d;
 }
 
 .transaction-item.depenses .transaction-icon {
-    background-color: #fee2e2;
+    background-color: #ef444433;
+    color: #ef4444;
 }
 
 .transaction-info {
@@ -111,14 +118,14 @@
 
 .transaction-title {
     font-weight: 500;
-    color: #0a0e27;
+    color: #e0e0e0;
     font-size: 14px;
     margin-bottom: 4px;
 }
 
 .transaction-date {
     font-size: 12px;
-    color: #8a92a8;
+    color: #a0a0a0;
 }
 
 .transaction-amount {
@@ -140,28 +147,29 @@
     align-items: center;
     gap: 8px;
     padding: 20px;
-    border-top: 1px solid #f0f3f7;
+    border-top: 1px solid #424249;
 }
 
 .pagination-btn {
     width: 36px;
     height: 36px;
-    border: 1px solid #e0e5ed;
+    border: 1px solid #424249;
     border-radius: 6px;
-    background: white;
+    background: #383841;
     cursor: pointer;
     font-weight: 500;
     font-size: 13px;
     transition: all 0.3s ease;
+    color: #e0e0e0;
 }
 
 .pagination-btn:hover {
-    border-color: #5b7fd4;
-    color: #5b7fd4;
+    border-color: #6ba0ff;
+    color: #6ba0ff;
 }
 
 .pagination-btn.active {
-    background: #5b7fd4;
+    background: #6ba0ff;
     color: white;
-    border-color: #5b7fd4;
+    border-color: #6ba0ff;
 }

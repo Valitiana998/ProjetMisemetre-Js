@@ -1,88 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('transactionForm');
-    const typeOptions = document.querySelectorAll('.type-option');
+    const transactionForm = document.getElementById('transactionForm');
+    const typeButtons = document.querySelectorAll('.btn-type');
     const transactionTypeInput = document.getElementById('transactionType');
-    const recurringCheckbox = document.getElementById('recurring');
-    const frequencySection = document.getElementById('frequencySection');
-    const tagInput = document.getElementById('tagInput');
-    const tagsList = document.getElementById('tagsList');
-    
-    let tags = [];
-    typeOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            typeOptions.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            transactionTypeInput.value = option.getAttribute('data-type');
+
+    // 1. Gestion de la sélection du type (Dépense / Revenu)
+    typeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            typeButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            transactionTypeInput.value = button.getAttribute('data-type');
         });
     });
 
-   
-    recurringCheckbox.addEventListener('change', () => {
-        frequencySection.style.display = recurringCheckbox.checked ? 'block' : 'none';
-    });
-
-
-    tagInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            const tagValue = tagInput.value.trim();
-            if (tagValue && !tags.includes(tagValue)) {
-                tags.push(tagValue);
-                const tagSpan = document.createElement('span');
-                tagSpan.className = 'tag';
-                tagSpan.innerHTML = `${tagValue} <button type="button" onclick="removeTag('${tagValue}')">x</button>`;
-                tagsList.appendChild(tagSpan);
-                tagInput.value = '';
-            }
-        }
-    });
-
-  
-    window.removeTag = (tag) => {
-        tags = tags.filter(t => t !== tag);
-        renderTags();
-    };
-
-    function renderTags() {
-        tagsList.innerHTML = '';
-        tags.forEach(tag => {
-            const tagSpan = document.createElement('span');
-            tagSpan.className = 'tag';
-            tagSpan.innerHTML = `${tag} <button type="button" onclick="removeTag('${tag}')">x</button>`;
-            tagsList.appendChild(tagSpan);
-        });
-    }
-
-  
-    form.addEventListener('submit', (e) => {
+    // 2. Gestion de la soumission du formulaire avec localStorage
+    transactionForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const formData = {
-            id: Date.now(), 
-            type: transactionTypeInput.value,
-            category: document.getElementById('category').value,
-            amount: parseFloat(document.getElementById('amount').value),
-            date: document.getElementById('date').value,
-            paymentMethod: document.getElementById('paymentMethod').value,
-            description: document.getElementById('description').value,
-            recurring: recurringCheckbox.checked,
-            frequency: recurringCheckbox.checked ? document.getElementById('frequency').value : null,
-            tags: tags
-        };
-
+        // Création de l'objet transaction
+        const formData = new FormData(transactionForm);
+        const newTransaction = Object.fromEntries(formData.entries());
         
-        const existingTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        
-       
-        existingTransactions.push(formData);
+        // Ajout d'un identifiant unique (timestamp)
+        newTransaction.id = Date.now();
 
-        
-        localStorage.setItem('transactions', JSON.stringify(existingTransactions));
+        // Récupération des transactions existantes (ou tableau vide si inexistant)
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
-        alert('Transaction enregistrée avec succès !');
-        form.reset();
-        tags = [];
-        renderTags();
-       
+        // Ajout de la nouvelle transaction
+        transactions.push(newTransaction);
+
+        // Sauvegarde dans le localStorage
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+
+        // Feedback utilisateur
+        alert("Transaction enregistrée avec succès !");
+
+        // Réinitialisation du formulaire
+        transactionForm.reset();
+        
+        // Réinitialisation visuelle du type
+        typeButtons.forEach(btn => btn.classList.remove('active'));
+        typeButtons[0].classList.add('active');
+        transactionTypeInput.value = 'expense';
+        
+        console.log('Données actuelles dans localStorage:', transactions);
     });
 });

@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une Transaction - Finance Manager</title>
+    <title>Ajouter un Objectif - Finance Manager</title>
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/addTransaction.css">
-    <script src="../js/main.js"></script>
-    <script src="../js/addTransaction.js"></script>
+    <script src="../js/add-goals.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,8 +14,8 @@
             <nav class="sidebar-menu">
            <a href="index.html" class="menu-item active">Tableau de Bord</a>
                 <a href="transactions.html" class="menu-item">Budget</a>
-                <a href="goals.html" class="menu-item">A venir</a>
-                <a href="reports.html" class="menu-item">Objectif</a>
+                <a href="goals.html" class="menu-item"> Objectif</a>
+                <a href="reports.html" class="menu-item">A venir</a>
                 <a href="profile.html" class="menu-item">historique</a>
                 <a href="profile.html" class="menu-item">Paramètres</a>
             </nav>
@@ -76,25 +74,14 @@
                         <label for="description" class="section-title">Description (Optionnel)</label>
                         <textarea id="description" name="description" placeholder="Ajouter une note..." class="form-textarea" rows="3"></textarea>
                     </div>
-                 
-
-                    <div class="form-section" id="frequencySection" style="display: none;">
-                        <label for="frequency" class="section-title">Fréquence</label>
-                        <select id="frequency" name="frequency" class="form-select">
-                            <option value="monthly">📅 Mensuel</option>
-                            <option value="weekly">📆 Hebdomadaire</option>
-                            <option value="yearly">📋 Annuel</option>
-                        </select>
-                    </div>
-
-                    <div class="form-actions">
+                <div class="form-actions">
                         <a href="transactions.html" class="btn btn-secondary">Annuler</a>
-                        <button type="submit" class="btn btn-primary"><a href="transactions.html">Ajouter la Transaction</a></button>
+                        <button type="submit" class="btn btn-primary">Ajouter la Transaction</button>
                     </div>
                 </form>
             </div>
         </main>
     </div>
-    <script src="../js/addTransaction.js"></script>
+    <script src="../js/addObjectif.js"></script>
 </body>
 </html>

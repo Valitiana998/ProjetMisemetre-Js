@@ -1,12 +1,13 @@
 /* Add Transaction Styles */
 
 .form-container {
-    background-color: white;
+    background-color: #2d2d33;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     padding: 30px;
     margin-bottom: 30px;
     max-width: 700px;
+    border: 1px solid #424249;
 }
 
 .transaction-form {
@@ -25,7 +26,7 @@
 .section-title {
     font-size: 14px;
     font-weight: 600;
-    color: #0a0e27;
+    color: #e0e0e0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -43,22 +44,22 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    border: 2px solid #e0e5ed;
+    border: 2px solid #424249;
     border-radius: 10px;
-    background-color: #f8fafc;
+    background-color: #383841;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .type-option:hover {
-    border-color: #5b7fd4;
-    background-color: #f0f3f7;
+    border-color: #6ba0ff;
+    background-color: #414250;
     transform: translateY(-2px);
 }
 
 .type-option.active {
-    border-color: #5b7fd4;
-    background-color: #e5ecf5;
+    border-color: #6ba0ff;
+    background-color: #414250;
 }
 
 .type-icon {
@@ -69,7 +70,7 @@
 .type-option p {
     font-size: 13px;
     font-weight: 500;
-    color: #0a0e27;
+    color: #e0e0e0;
 }
 
 /* Form Inputs */
@@ -77,32 +78,32 @@
 .form-select,
 .form-textarea {
     padding: 12px 14px;
-    border: 1px solid #e0e5ed;
+    border: 1px solid #424249;
     border-radius: 8px;
     font-size: 14px;
-    color: #0a0e27;
+    color: #e0e0e0;
     font-family: inherit;
     transition: all 0.3s ease;
-    background-color: white;
+    background-color: #383841;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: #5b7fd4;
-    box-shadow: 0 0 0 3px rgba(91, 127, 212, 0.1);
+    border-color: #6ba0ff;
+    box-shadow: 0 0 0 3px rgba(107, 160, 255, 0.1);
 }
 
 .form-input::placeholder,
 .form-textarea::placeholder {
-    color: #8a92a8;
+    color: #a0a0a0;
 }
 
 .form-select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235b7fd4' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236ba0ff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     padding-right: 36px;
@@ -113,22 +114,22 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid #e0e5ed;
+    border: 1px solid #424249;
     border-radius: 8px;
     padding: 0 14px;
-    background-color: white;
+    background-color: #383841;
     transition: all 0.3s ease;
 }
 
 .amount-input-group:focus-within {
-    border-color: #5b7fd4;
-    box-shadow: 0 0 0 3px rgba(91, 127, 212, 0.1);
+    border-color: #6ba0ff;
+    box-shadow: 0 0 0 3px rgba(107, 160, 255, 0.1);
 }
 
 .currency {
     font-size: 14px;
     font-weight: 600;
-    color: #8a92a8;
+    color: #a0a0a0;
     white-space: nowrap;
 }
 
@@ -138,6 +139,8 @@
     padding: 12px 0;
     font-size: 16px;
     font-weight: 500;
+    background-color: transparent;
+    color: #e0e0e0;
 }
 
 .amount-input:focus {
@@ -161,16 +164,18 @@
 .tag-input-field {
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #e0e5ed;
+    border: 1px solid #424249;
     border-radius: 8px;
     font-size: 14px;
     transition: all 0.3s ease;
+    background-color: #383841;
+    color: #e0e0e0;
 }
 
 .tag-input-field:focus {
     outline: none;
-    border-color: #5b7fd4;
-    box-shadow: 0 0 0 3px rgba(91, 127, 212, 0.1);
+    border-color: #6ba0ff;
+    box-shadow: 0 0 0 3px rgba(107, 160, 255, 0.1);
 }
 
 .tags-list {
@@ -184,17 +189,18 @@
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    background-color: #e5ecf5;
-    color: #5b7fd4;
+    background-color: #414250;
+    color: #6ba0ff;
     border-radius: 20px;
     font-size: 13px;
     font-weight: 500;
+    border: 1px solid #6ba0ff;
 }
 
 .tag-remove {
     background: none;
     border: none;
-    color: #5b7fd4;
+    color: #6ba0ff;
     cursor: pointer;
     font-size: 16px;
     padding: 0;
@@ -202,7 +208,7 @@
 }
 
 .tag-remove:hover {
-    color: #4a6cbd;
+    color: #7bb1ff;
 }
 
 /* Checkbox for Recurring */
@@ -211,9 +217,10 @@
     align-items: flex-start;
     gap: 12px;
     padding: 14px;
-    background-color: #f8fafc;
+    background-color: #383841;
     border-radius: 8px;
     cursor: pointer;
+    border: 1px solid #424249;
 }
 
 .checkbox-input {
@@ -222,7 +229,7 @@
     min-width: 20px;
     margin-top: 2px;
     cursor: pointer;
-    accent-color: #5b7fd4;
+    accent-color: #6ba0ff;
 }
 
 .checkbox-label {
@@ -236,12 +243,12 @@
 .checkbox-label span {
     font-size: 14px;
     font-weight: 500;
-    color: #0a0e27;
+    color: #e0e0e0;
 }
 
 .checkbox-label p {
     font-size: 12px;
-    color: #8a92a8;
+    color: #a0a0a0;
 }
 
 /* Form Actions */
@@ -250,7 +257,7 @@
     gap: 12px;
     justify-content: flex-end;
     padding-top: 20px;
-    border-top: 1px solid #e0e5ed;
+    border-top: 1px solid #424249;
     margin-top: 10px;
 }
 
@@ -271,14 +278,14 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #5b7fd4 0%, #4a6cbd 100%);
+    background: linear-gradient(135deg, #6ba0ff 0%, #5a8ee8 100%);
     color: white;
-    box-shadow: 0 2px 8px rgba(91, 127, 212, 0.3);
+    box-shadow: 0 2px 8px rgba(107, 160, 255, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(91, 127, 212, 0.4);
+    box-shadow: 0 4px 12px rgba(107, 160, 255, 0.4);
 }
 
 .btn-primary:active {
@@ -286,15 +293,15 @@
 }
 
 .btn-secondary {
-    background-color: #f0f3f7;
-    color: #0a0e27;
-    border: 1px solid #e0e5ed;
+    background-color: #414250;
+    color: #e0e0e0;
+    border: 1px solid #424249;
 }
 
 .btn-secondary:hover {
-    background-color: #e5ecf5;
-    border-color: #5b7fd4;
-    color: #5b7fd4;
+    background-color: #4a5360;
+    border-color: #6ba0ff;
+    color: #6ba0ff;
 }
 
 /* Recent Preview */
