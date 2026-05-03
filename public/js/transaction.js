@@ -1,33 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const transactionsList = document.getElementById('transactionsList');
-    
-    // 1. Récupérer les données du localStorage
-    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+// 1. Fonctions globales (Accessibles par les boutons onclick)
+function deleteTx(id) {
+    if (confirm("Voulez-vous vraiment supprimer cette transaction ?")) {
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        
+        // 🔑 La ligne qui corrige tout : comparer en STRING
+        const updatedTransactions = transactions.filter(t => String(t.id) === String(id) ? false : true);
+        
+        localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+        renderTransactions();
+    }
+}
 
-    // 2. Dictionnaire pour associer les catégories aux icônes
+function editTx(id) {
+    // Redirection vers la page addTransaction.html avec l'ID dans l'URL
+    window.location.href = `addTransaction.html?id=${id}`;
+}
+
+// 2. Fonction pour générer l'affichage (Read)
+// 2. Fonction pour générer l'affichage (Read)
+function renderTransactions() {
+    const transactionsList = document.getElementById('transactionsList');
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    
+    // 🔑 CORRECTION : Supprimer les doublons par ID (garde le dernier)
+    const seen = {};
+    transactions = transactions.filter(t => {
+        const id = String(t.id);
+        // On garde toujours la dernière occurrence d'un ID
+        seen[id] = t;
+        return true;
+    });
+    // Reconstruire le tableau sans doublons
+    transactions = Object.values(seen);
+    
+    // Dictionnaire pour les icônes
     const categoryIcons = {
         housing: '🏠', transport: '🚗', food: '🍔',
         utilities: '💡', entertainment: '🎬', shopping: '🛍️',
         health: '🏥', education: '📚', other: '📌'
     };
 
-    // 3. Vérifier si le tableau est vide
+    // Nettoyer la liste avant d'afficher
+    transactionsList.innerHTML = '';
+
     if (transactions.length === 0) {
-        transactionsList.innerHTML = '<p style="text-align:center; color:#888;">Aucune transaction enregistrée pour le moment.</p>';
+        transactionsList.innerHTML = '<p style="text-align:center; color:#888;">Aucune transaction enregistrée.</p>';
         return;
     }
 
-    // 4. Générer le HTML pour chaque transaction
-    // On utilise .reverse() pour afficher la plus récente en premier
+    // Affichage (plus récentes en premier)
     transactions.slice().reverse().forEach(t => {
         const isExpense = t.type === 'expense';
         const icon = categoryIcons[t.category] || '📌';
         const amountSign = isExpense ? '-' : '+';
         const amountClass = isExpense ? 'negative' : 'positive';
 
-        // Création de l'élément HTML via template literals
+        // 🔑 Sécuriser l'ID pour les onclick (échapper les quotes)
+        const safeId = String(t.id).replace(/'/g, "\\'");
+
         const itemHTML = `
-            <div class="transaction-item">
+            <div class="transaction-item" data-tx-id="${t.id}">
                 <div class="transaction-info">
                     <span class="transaction-icon">${icon}</span>
                     <div class="transaction-details">
@@ -38,9 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="transaction-amount ${amountClass}">
                     ${amountSign}${parseFloat(t.amount).toFixed(2)} Ar
                 </div>
+                <div class="tx-actions">
+                    <button class="btn btn-icon" onclick="editTx('${safeId}')">✏</button>
+                    <button class="btn btn-icon danger" onclick="deleteTx('${safeId}')">✕</button>
+                </div>
             </div>
         `;
-
         transactionsList.innerHTML += itemHTML;
     });
+}
+
+
+// 3. Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    renderTransactions();
 });

@@ -1,3 +1,7 @@
+/* =========================================
+    CSS CORRIGÉ & HARMONISÉ (Dark Theme)
+   ========================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +14,6 @@ body {
     color: #e0e0e0;
 }
 
-/* Container Layout */
 .container {
     display: flex;
     height: 100vh;
@@ -53,11 +56,7 @@ body {
     display: block;
 }
 
-.menu-item:hover {
-    background-color: #282833;
-    color: #6ba0ff;
-}
-
+.menu-item:hover,
 .menu-item.active {
     background-color: #282833;
     color: #6ba0ff;
@@ -122,26 +121,6 @@ body {
     text-align: center;
 }
 
-/* Page Header */
-.page-header {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.page-header h2 {
-    font-size: 28px;
-    font-weight: 600;
-    color: #e0e0e0;
-}
-
-.page-header p {
-    font-size: 14px;
-    color: #a0a0a0;
-    margin-top: 4px;
-}
-
 /* Stats Grid */
 .stats-grid {
     display: grid;
@@ -155,13 +134,14 @@ body {
     padding: 24px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
     border: 1px solid #424249;
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 16px rgba(91, 127, 212, 0.15);
+    border-color: #6ba0ff;
 }
 
 .stat-card h3 {
@@ -189,17 +169,8 @@ body {
     color: #1bc47d;
 }
 
-.stat-card.solde .amount {
-    color: #e0e0e0;
-}
-
-.stat-card.revenus .amount {
-    color: #1bc47d;
-}
-
-.stat-card.depenses .amount {
-    color: #ef4444;
-}
+.stat-card.revenus .amount { color: #1bc47d; }
+.stat-card.depenses .amount { color: #ef4444; }
 
 /* Charts Section */
 .charts-section {
@@ -208,7 +179,8 @@ body {
     gap: 20px;
 }
 
-.chart-card {
+.chart-card,
+.card {
     background-color: #2d2d33;
     padding: 24px;
     border-radius: 12px;
@@ -216,7 +188,8 @@ body {
     border: 1px solid #424249;
 }
 
-.chart-card h3 {
+.chart-card h3,
+.card h3 {
     font-size: 16px;
     font-weight: 600;
     color: #e0e0e0;
@@ -271,21 +244,6 @@ body {
     gap: 20px;
 }
 
-.card {
-    background-color: #2d2d33;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    border: 1px solid #424249;
-}
-
-.card h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #e0e0e0;
-    margin-bottom: 20px;
-}
-
 /* Upcoming Items */
 .upcoming-list {
     display: flex;
@@ -317,17 +275,9 @@ body {
     border-radius: 50%;
 }
 
-.dot.loyer {
-    background-color: #ef4444;
-}
-
-.dot.netflix {
-    background-color: #f59e0b;
-}
-
-.dot.credit {
-    background-color: #8b5cf6;
-}
+.dot.loyer { background-color: #ef4444; }
+.dot.netflix { background-color: #f59e0b; }
+.dot.credit { background-color: #8b5cf6; }
 
 .item-info {
     display: flex;
@@ -337,7 +287,7 @@ body {
 .item-info p {
     font-size: 13px;
     font-weight: 500;
-    color: #0a0e27;
+    color: #e0e0e0; /* ✅ Corrigé (était #0a0e27 trop sombre) */
 }
 
 .item-info .date {
@@ -373,7 +323,7 @@ body {
 .objective-title {
     font-size: 13px;
     font-weight: 500;
-    color: #0a0e27;
+    color: #e0e0e0; /* ✅ Corrigé */
 }
 
 .percentage {
@@ -385,7 +335,7 @@ body {
 .progress-bar {
     width: 100%;
     height: 8px;
-    background-color: #f0f3f7;
+    background-color: #1a1a2e; /* ✅ Corrigé (était #f0f3f7 trop clair) */
     border-radius: 4px;
     overflow: hidden;
     margin-bottom: 8px;
@@ -422,6 +372,7 @@ body {
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    z-index: 100;
 }
 
 .fab:hover {
@@ -461,20 +412,16 @@ body {
     box-shadow: 0 4px 12px rgba(91, 127, 212, 0.4);
 }
 
-.btn-primary:active {
-    transform: translateY(0);
-}
-
 .btn-secondary {
-    background-color: #f0f3f7;
-    color: #0a0e27;
-    border: 1px solid #e0e5ed;
+    background-color: #2d2d33; /* ✅ Corrigé (était #f0f3f7) */
+    color: #e0e0e0;            /* ✅ Corrigé */
+    border: 1px solid #424249; /* ✅ Corrigé */
 }
 
 .btn-secondary:hover {
-    background-color: #e5ecf5;
-    border-color: #5b7fd4;
-    color: #5b7fd4;
+    background-color: #35353d;
+    border-color: #6ba0ff;
+    color: #6ba0ff;
 }
 
 /* Responsive Design */
@@ -485,56 +432,29 @@ body {
 }
 
 @media (max-width: 1024px) {
-    .sidebar {
-        width: 200px;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .sidebar { width: 200px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
+    .container { flex-direction: column; }
+    
     .sidebar {
         width: 100%;
         padding: 20px;
         border-right: none;
-        border-bottom: 1px solid #e0e5ed;
+        border-bottom: 1px solid #424249; /* ✅ Corrigé */
         max-height: 120px;
         overflow: hidden;
     }
 
-    .sidebar-menu {
-        flex-direction: row;
-        gap: 0;
-    }
-
-    .menu-item {
-        flex: 1;
-        text-align: center;
-    }
-
-    .main-content {
-        padding: 20px;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .charts-section {
-        grid-template-columns: 1fr;
-    }
-
+    .sidebar-menu { flex-direction: row; gap: 0; }
+    .menu-item { flex: 1; text-align: center; }
+    .main-content { padding: 20px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .charts-section { grid-template-columns: 1fr; }
+    
     .fab {
         bottom: 20px;
         right: 20px;
@@ -544,20 +464,20 @@ body {
     }
 }
 
-/* Scrollbar Styling */
+/* Scrollbar Styling - Dark Theme ✅ */
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #1f1f24; /* ✅ Corrigé */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #424249; /* ✅ Corrigé */
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #6ba0ff; /* ✅ Corrigé */
 }
