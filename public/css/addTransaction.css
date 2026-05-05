@@ -374,17 +374,18 @@
 
 /* ===== Recent Preview ===== */
 .recent-preview {
-    background-color: white;
+    background-color: #2d2d33;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     padding: 24px;
     max-width: 700px;
+    border: 1px solid #424249;
 }
 
 .recent-preview h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #0a0e27;
+    color: #e0e0e0;
     margin-bottom: 16px;
 }
 
@@ -399,25 +400,25 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px;
-    background-color: #f8fafc;
-    border-left: 4px solid #e0e5ed;
+    background-color: #383841;
+    border-left: 4px solid #424249;
     border-radius: 6px;
     transition: all 0.3s ease;
 }
 
 .mini-transaction-item.income {
     border-left-color: #1bc47d;
-    background-color: #f0fdf7;
+    background-color: #1bc47d11;
 }
 
 .mini-transaction-item.expense {
     border-left-color: #ef4444;
-    background-color: #fef2f2;
+    background-color: #ef444411;
 }
 
 .mini-transaction-item:hover {
     transform: translateX(4px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .mini-transaction-info {
@@ -429,12 +430,12 @@
 .mini-transaction-category {
     font-size: 13px;
     font-weight: 500;
-    color: #0a0e27;
+    color: #e0e0e0;
 }
 
 .mini-transaction-date {
     font-size: 11px;
-    color: #8a92a8;
+    color: #a0a0a0;
 }
 
 .mini-transaction-amount {

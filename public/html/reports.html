@@ -9,119 +9,64 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-                <div class="logo-icon">Ar</div>
-                <div class="logo-text">Tabeleau de bord</div>
+                <div class="logo-text">Tableau de bord</div>
             </div>
             <nav>
-                <a href="index.html" class="menu-item active">Tableau de Bord</a>
+            <a href="index.html" class="menu-item active">Tableau de Bord</a>
                 <a href="transactions.html" class="menu-item">Budget</a>
-                <a href="goals.html" class="menu-item">A venir</a>
-                <a href="reports.html" class="menu-item">Objectif</a>
+                <a href="goals.html" class="menu-item"> Objectif</a>
+                <a href="reports.html" class="menu-item">A venir</a>
                 <a href="profile.html" class="menu-item">historique</a>
                 <a href="profile.html" class="menu-item">Paramètres</a>
             </nav>
-            </nav>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <div class="header">
                 <div class="header-title">
                     <h1>Dépenses à venir</h1>
                     <p>Vos charges récurrentes et engagements financiers planifiés</p>
                 </div>
-                <button class="btn-primary">
+                <button class="btn-primary" id="btn-new-charge"><a href="addDepenese.html">  
                     <span>+</span>
-                    <span>Nouvelle charge</span>
+                    <span>Nouvelle charge</span></a>
+              
                 </button>
             </div>
 
-            <!-- Summary Cards -->
             <div class="summary-cards">
                 <div class="card">
                     <div class="card-label">À PAYER CE MOIS</div>
-                    <div class="card-value red">957 000 Ar</div>
-                    <div class="card-subtitle">5 prélèvements</div>
+                    <div class="card-value red" id="total-month">0 Ar</div>
+                    <div class="card-subtitle" id="total-count">0 prélèvements</div>
                 </div>
                 <div class="card">
                     <div class="card-label">PROCHAIN PAIEMENT</div>
-                    <div class="card-value dark">Loyer</div>
-                    <div class="card-subtitle">02 mai · dans 3 jours</div>
+                    <div class="card-value dark" id="next-payment-title">-</div>
+                    <div class="card-subtitle" id="next-payment-date">-</div>
                 </div>
                 <div class="card">
                     <div class="card-label">SOLDE PROJETÉ FIN MAI</div>
-                    <div class="card-value green">+600 000 Ar</div>
+                    <div class="card-value green" id="projected-balance">+0 Ar</div>
                     <div class="card-subtitle">après toutes les charges</div>
                 </div>
             </div>
 
-            <!-- Calendar Section -->
             <div class="calendar-section">
                 <div class="calendar-header">
                     <h2 class="calendar-title">Calendrier des prélèvements (30 prochains jours)</h2>
                     <div class="filter-buttons">
-                        <button class="filter-btn active">Tous</button>
-                        <button class="filter-btn">Mensuel</button>
-                        <button class="filter-btn">Annuel</button>
+                        <button class="filter-btn active" data-filter="all">Tous</button>
+                        <button class="filter-btn" data-filter="mensuel">Mensuel</button>
+                        <button class="filter-btn" data-filter="annuel">Annuel</button>
                     </div>
                 </div>
-
-                <div class="timeline">
-                    <div class="timeline-item rent">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">02 MAI</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Loyer appartement</div>
-                            <div class="timeline-meta">Logement · Loyer · Mensuel · Prélèvement automatique</div>
-                        </div>
-                        <div class="timeline-amount">−600 000 Ar</div>
-                    </div>
-
-                    <div class="timeline-item streaming">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">05 MAI</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Netflix</div>
-                            <div class="timeline-meta">Loisirs · Streaming · Mensuel · Carte bancaire</div>
-                        </div>
-                        <div class="timeline-amount">−32 000 Ar</div>
-                    </div>
-
-                    <div class="timeline-item credit">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">07 MAI</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Crédit voiture</div>
-                            <div class="timeline-meta">Dette · Crédit auto · Mensuel · 18 / 36 échéances restantes</div>
-                        </div>
-                        <div class="timeline-amount">−180 000 Ar</div>
-                    </div>
-
-                    <div class="timeline-item streaming">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">15 MAI</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Spotify</div>
-                            <div class="timeline-meta">Loisirs · Streaming · Mensuel · Carte bancaire</div>
-                        </div>
-                        <div class="timeline-amount">−25 000 Ar</div>
-                    </div>
-
-                    <div class="timeline-item internet">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">20 MAI</div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Internet Telma</div>
-                            <div class="timeline-meta">Logement · Internet · Mensuel · Prélèvement automatique</div>
-                        </div>
-                        <div class="timeline-amount">−120 000 Ar</div>
-                    </div>
-                </div>
+                <div class="timeline" id="timeline"></div>
             </div>
         </main>
     </div>
+<script src="../js/reports.js"></script>
 </body>
 </html>

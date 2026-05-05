@@ -1,46 +1,203 @@
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transactions - Finance Manager</title>
+    <title>Budget - Finance Manager</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/transactions.css">
+    <link rel="stylesheet" href="../css/addTransaction.css">
+<style>
+    .budget-container {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    @media (max-width: 1024px) {
+        .budget-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .form-section-card, 
+    .transactions-section-card {
+        /* ✅ Même background que main.css - Dark Theme */
+        background-color: #2d2d33;
+        border: 1px solid #424249;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .form-section-card:hover,
+    .transactions-section-card:hover {
+        transform: translateY(-2px);
+        border-color: #6ba0ff;
+        box-shadow: 0 6px 16px rgba(91, 127, 212, 0.15);
+    }
+    
+    .section-title-card {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: #e0e0e0; /* ✅ Texte clair pour contraste */
+    }
+    
+    /* ✅ Harmonisation des inputs avec le dark theme */
+    .form-section-card .form-input,
+    .form-section-card .form-select,
+    .form-section-card .form-textarea {
+        background-color: #1f1f24;
+        border: 1px solid #424249;
+        color: #e0e0e0;
+    }
+    
+    .form-section-card .form-input:focus,
+    .form-section-card .form-select:focus,
+    .form-section-card .form-textarea:focus {
+        border-color: #6ba0ff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(107, 160, 255, 0.2);
+    }
+    
+    /* ✅ Harmonisation des boutons dans les cards */
+    .form-section-card .btn-type {
+        background-color: #1f1f24;
+        color: #a0a0a0;
+        border: 1px solid #424249;
+    }
+    
+    .form-section-card .btn-type.active,
+    .form-section-card .btn-type:hover {
+        background-color: #6ba0ff;
+        color: #1a1a1e;
+        border-color: #6ba0ff;
+    }
+    
+    /* ✅ Amount colors pour cohérence */
+    .transaction-amount.positive {
+        color: #1bc47d;
+    }
+    
+    .transaction-amount.negative {
+        color: #ef4444;
+    }
+</style>
 </head>
 <body>
     <input type="hidden" id="editId" name="editId">
     <div class="container">
         <aside class="sidebar">
-            <div class="sidebar-header"><h1>Tableau de bord</h1></div>
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">Ar</span>
+                    <span class="logo-text">Finance Manager</span>
+                </div>
+            </div>
             <nav class="sidebar-menu">
-           <a href="index.html" class="menu-item active">Tableau de Bord</a>
-                <a href="transactions.html" class="menu-item">Budget</a>
-                <a href="goals.html" class="menu-item"> Objectif</a>
+                <a href="index.html" class="menu-item">Tableau de bord</a>
+                <a href="budget.html" class="menu-item active">Budget</a>
+                <a href="goals.html" class="menu-item">Ogjectifs</a>
                 <a href="reports.html" class="menu-item">A venir</a>
-                <a href="profile.html" class="menu-item">historique</a>
-                <a href="profile.html" class="menu-item">Paramètres</a>
+                <a href="history.html" class="menu-item">Historique</a>
+                <a href="profile.html" class="menu-item">Paramètres</a>            
             </nav>
         </aside>
 
         <main class="main-content">
             <div class="page-header">
                 <div class="header-top">
-                    <h2>Transactions</h2>
-                    <p>Historique de vos transactions</p>
+                    <h2>Budget mensuel</h2>
+                    <p id="currentMonthYear">Avril 2026 — <span id="transactionCount">0</span> transactions</p>
                 </div>
                 <div class="header-actions">
-                    <a href="addTransaction.html" class="btn-primary">+ Ajouter</a>
+                    <button class="btn-secondary" id="prevMonth">‹ Mois précédent</button>
+                    <button class="btn-secondary" id="nextMonth">Mois suivant ›</button>
                 </div>
             </div>
 
-            <div class="transactions-container">
-                <div class="transactions-list" id="transactionsList">
-                    <!-- Les transactions seront injectées ici par JS -->
+            <div class="budget-container">
+                <!-- Formulaire d'ajout de transaction -->
+                <div class="form-section-card">
+                    <h3 class="section-title-card">Nouvelle transaction</h3>
+                    
+                    <form class="transaction-form" id="transactionForm">
+                        <div class="form-section">
+                            <label class="section-title">Type</label>
+                            <div class="type-options">
+                                <button type="button" class="btn btn-type active" data-type="expense">Dépense</button>
+                                <button type="button" class="btn btn-type" data-type="income">Revenu</button>
+                            </div>
+                            <input type="hidden" id="transactionType" name="type" value="expense">
+                        </div>
+
+                        <div class="form-section">
+                            <label for="libelle" class="section-title">Libellé</label>
+                            <input type="text" id="libelle" name="libelle" placeholder="Ex: Loyer, Salaire..." class="form-input" required>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="amount" class="section-title">Montant</label>
+                            <div class="amount-input-group">
+                                <input type="number" id="amount" name="amount" placeholder="0.00" step="0.01" min="0.01" required class="form-input amount-input">
+                                <span class="currency">Ar</span>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="category" class="section-title">Catégorie</label>
+                            <select id="category" name="category" class="form-select" required>
+                                <option value="">Sélectionner une catégorie</option>
+                                <optgroup label="Revenus">
+                                    <option value="salaire">💰 Salaire</option>
+                                    <option value="business">💼 Business</option>
+                                    <option value="investissement">📈 Investissement</option>
+                                </optgroup>
+                                <optgroup label="Dépenses Courantes">
+                                    <option value="logement">🏠 Logement</option>
+                                    <option value="transport">🚗 Transport</option>
+                                    <option value="alimentation">🍔 Alimentation</option>
+                                    <option value="electricite">💡 Électricité & Eau</option>
+                                    <option value="loisirs">🎬 Loisirs</option>
+                                </optgroup>
+                                <optgroup label="Autres Catégories">
+                                    <option value="sante">🏥 Santé</option>
+                                    <option value="education">📚 Éducation</option>
+                                    <option value="shopping">🛍️ Shopping</option>
+                                    <option value="autre">📌 Autre</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="date" class="section-title">Date</label>
+                            <input type="date" id="date" name="date" required class="form-input">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="btnCancel" style="display:none;">Annuler</button>
+                            <button type="submit" class="btn btn-primary" id="btnSubmit">Ajouter la transaction</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="pagination">
-                    <button class="pagination-btn active">1</button>
-                    <button class="pagination-btn">2</button>
-                    <button class="pagination-btn">3</button>
+
+                <!-- Liste des transactions -->
+                <div class="transactions-section-card">
+                    <h3 class="section-title-card">Transactions du mois</h3>
+                    
+                    <div class="transactions-list" id="transactionsList">
+                        <!-- Les transactions seront injectées ici par JS -->
+                    </div>
+                    
+                    <div class="transactions-summary" id="transactionsSummary" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="totalEntries">0 entrée</span>
+                        <span style="font-weight: 600;">Solde net: <span id="netBalance" class="positive">0 Ar</span></span>
+                    </div>
                 </div>
             </div>
         </main>
