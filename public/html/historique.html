@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Manager - Historique</title>
+    <link rel="stylesheet" href="../css/historique.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar"> 
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">Ar</span>
+                    <h1>Finance Manager</h1>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+             <a href="index.html" class="menu-item active">Tableau de Bord</a>
+                <a href="transactions.html" class="menu-item">Budget</a>
+                <a href="goals.html" class="menu-item"> Objectif</a>
+                <a href="reports.html" class="menu-item">A venir</a>
+                <a href="historique.html" class="menu-item">historique</a>
+                <a href="profile.html" class="menu-item">Paramètres</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="page-header">
+                <div>
+                    <h2>Historique des transactions</h2>
+                    <p class="page-subtitle">Filtrez et analysez toutes vos opérations passées</p>
+                </div>
+                <button class="btn btn-secondary btn-export">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                    </svg>
+                    Exporter CSV
+                </button>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-card">
+                <h3 class="filters-title">Filtres</h3>
+
+                <!-- Période -->
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">PÉRIODE</label>
+                        <div class="period-buttons">
+                            <button class="period-btn active">Mois</button>
+                            <button class="period-btn">3 mois</button>
+                            <button class="period-btn">Année</button>
+                            <button class="period-btn">Personnalisé</button>
+                        </div>
+                    </div>
+
+                    <!-- Date Range -->
+                    <div class="filter-group">
+                        <label class="filter-label">DU — AU</label>
+                        <div class="date-range">
+                            <input type="date" class="date-input" value="2026-04-01">
+                            <span class="date-separator">→</span>
+                            <input type="date" class="date-input" value="2026-04-30">
+                        </div>
+                    </div>
+
+                    <!-- Catégorie -->
+                    <div class="filter-group">
+                        <label class="filter-label">CATÉGORIE</label>
+                        <select class="category-select">
+                            <option>Toutes catégories</option>
+                            <option>Santé</option>
+                            <option>Alimentation</option>
+                            <option>Transport</option>
+                            <option>Loisirs</option>
+                        </select>
+                        <button class="btn-reset">Réinit.</button>
+                    </div>
+                </div>
+
+                <!-- Active Filters -->
+                <div class="active-filters">
+                    <span class="filter-label-small">FILTRES ACTIFS :</span>
+                    <span class="filter-tag">Avril 2026 <button class="tag-close">×</button></span>
+                    <span class="filter-tag">Logement <button class="tag-close">×</button></span>
+                    <span class="filter-tag">Dépenses <button class="tag-close">×</button></span>
+                </div>
+            </div>
+
+            <!-- Stats Summary -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-label">RÉSULTATS</span>
+                    <span class="stat-value">42 transactions</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">REVENUS</span>
+                    <span class="stat-value text-green">+1 500 000 Ar</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">DÉPENSES</span>
+                    <span class="stat-value text-red">−1 050 000 Ar</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">SOLDE NET</span>
+                    <span class="stat-value">+450 000 Ar</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">DÉPENSE MOYENNE</span>
+                    <span class="stat-value">75 000 Ar</span>
+                </div>
+            </div>
+
+            <!-- Transaction Table -->
+            <div class="table-card">
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th class="col-date">DATE</th>
+                            <th class="col-libelle">LIBELLÉ</th>
+                            <th class="col-categorie">CATÉGORIE</th>
+                            <th class="col-type">TYPE</th>
+                            <th class="col-montant">MONTANT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-date">28/04/2026</td>
+                            <td class="col-libelle">Pharmacie centrale</td>
+                            <td class="col-categorie"><span class="cat-tag cat-sante">Santé</span></td>
+                            <td class="col-type">Dépense</td>
+                            <td class="col-montant text-red">−18 000 Ar</td>
+                        </tr>
+                        <tr>
+                            <td class="col-date">22/04/2026</td>
+                            <td class="col-libelle">Restaurant Le Bistrot</td>
+                            <td class="col-categorie"><span class="cat-tag cat-alim">Alimentation</span></td>
+                            <td class="col-type">Dépense</td>
+                            <td class="col-montant text-red">−25 000 Ar</td>
+                        </tr>
+                        <tr>
+                            <td class="col-date">18/04/2026</td>
+                            <td class="col-libelle">Remboursement Paul</td>
+                            <td class="col-categorie"><span class="cat-tag cat-revenu">Revenu</span></td>
+                            <td class="col-type">Revenu</td>
+                            <td class="col-montant text-green">+25 000 Ar</td>
+                        </tr>
+                        <tr>
+                            <td class="col-date">12/04/2026</td>
+                            <td class="col-libelle">Taxi-brousse Tana-Antsirabe</td>
+                            <td class="col-categorie"><span class="cat-tag cat-transport">Transport</span></td>
+                            <td class="col-type">Dépense</td>
+                            <td class="col-montant text-red">−55 000 Ar</td>
+                        </tr>
+                        <tr>
+                            <td class="col-date">10/04/2026</td>
+                            <td class="col-libelle">Abonnement Netflix</td>
+                            <td class="col-categorie"><span class="cat-tag cat-loisirs">Loisirs</span></td>
+                            <td class="col-type">Dépense</td>
+                            <td class="col-montant text-red">−32 000 Ar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <span class="page-info">Affichage 1–5 sur 42</span>
+                    <div class="page-buttons">
+                        <button class="page-btn disabled">Précédent</button>
+                        <button class="page-btn active-page">Suivant</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/historique.js"></script>
+</body>
+</html>

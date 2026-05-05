@@ -1,186 +1,303 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // 📦 Données centrales (état de l'application)
-    let expensesData = [
-        { id: 1, title: 'Loyer appartement', category: 'Logement', frequency: 'Mensuel', paymentMethod: 'Prélèvement automatique', amount: -600000, date: '2026-05-02' },
-        { id: 2, title: 'Netflix', category: 'Loisirs', frequency: 'Mensuel', paymentMethod: 'Carte bancaire', amount: -32000, date: '2026-05-05' },
-        { id: 3, title: 'Crédit voiture', category: 'Dette', frequency: 'Mensuel', paymentMethod: '18/36 échéances', amount: -180000, date: '2026-05-07' },
-        { id: 4, title: 'Spotify', category: 'Loisirs', frequency: 'Mensuel', paymentMethod: 'Carte bancaire', amount: -25000, date: '2026-05-15' },
-        { id: 5, title: 'Internet Telma', category: 'Logement', frequency: 'Mensuel', paymentMethod: 'Prélèvement automatique', amount: -120000, date: '2026-05-20' }
-    ];
+// reports.js - Gestion des dépenses à venir
 
-    // 1️⃣ CRÉATION DU FORMULAIRE (injecté dynamiquement)
-    function initForm() {
-        const main = document.querySelector('.main-content');
-        if (!main) return;
+// === CONFIGURATION GLOBALE ===
+const currentMonth = new Date().getMonth();
+const currentYear = new Date().getFullYear();
+const today = new Date();
 
-        const formWrapper = document.createElement('div');
-        formWrapper.id = 'form-container';
-        formWrapper.style.marginTop = '2rem';
+// Icônes par catégorie
+const categoryIcons = {
+    'Logement': '🏠',
+    'Transport': '🚗',
+    'Alimentation': '🍔',
+    'Loisirs': '🎬',
+    'Électricité & Eau': '💡',
+    'Santé': '🏥',
+    'Éducation': '📚',
+    'Shopping': '🛍️',
+    'Dette': '💳',
+    'Autre': '📌'
+};
 
-        formWrapper.innerHTML = `
-            <h2 style="color:#fff; margin-bottom:1rem;">➕ Nouvelle charge</h2>
-            <form id="chargeForm" style="background:#1e1e2e; padding:1.5rem; border-radius:8px; display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <div>
-                    <label style="display:block; color:#888; margin-bottom:0.3rem; font-size:0.85rem;">Titre *</label>
-                    <input type="text" id="f-title" required style="width:100%; padding:0.6rem; background:#12121c; border:1px solid #333; color:#fff; border-radius:4px;">
-                </div>
-                <div>
-                    <label style="display:block; color:#888; margin-bottom:0.3rem; font-size:0.85rem;">Montant (Ar) *</label>
-                    <input type="number" id="f-amount" required min="1" style="width:100%; padding:0.6rem; background:#12121c; border:1px solid #333; color:#fff; border-radius:4px;">
-                </div>
-                <div>
-                    <label style="display:block; color:#888; margin-bottom:0.3rem; font-size:0.85rem;">Date *</label>
-                    <input type="date" id="f-date" required style="width:100%; padding:0.6rem; background:#12121c; border:1px solid #333; color:#fff; border-radius:4px;">
-                </div>
-                <div>
-                    <label style="display:block; color:#888; margin-bottom:0.3rem; font-size:0.85rem;">Catégorie *</label>
-                    <select id="f-category" required style="width:100%; padding:0.6rem; background:#12121c; border:1px solid #333; color:#fff; border-radius:4px;">
-                        <option value="">Sélectionner...</option>
-                        <option value="Logement">Logement</option>
-                        <option value="Loisirs">Loisirs</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Dette">Dette</option>
-                        <option value="Autre">Autre</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="display:block; color:#888; margin-bottom:0.3rem; font-size:0.85rem;">Fréquence *</label>
-                    <select id="f-frequency" required style="width:100%; padding:0.6rem; background:#12121c; border:1px solid #333; color:#fff; border-radius:4px;">
-                        <option value="Mensuel">Mensuel</option>
-                        <option value="Annuel">Annuel</option>
-                        <option value="Hebdomadaire">Hebdomadaire</option>
-                        <option value="Unique">Unique</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="display:block; color:#888; margin-bottom:0.3rem; font-size:0.85rem;">Mode de paiement *</label>
-                    <select id="f-payment" required style="width:100%; padding:0.6rem; background:#12121c; border:1px solid #333; color:#fff; border-radius:4px;">
-                        <option value="Prélèvement automatique">Prélèvement automatique</option>
-                        <option value="Carte bancaire">Carte bancaire</option>
-                        <option value="Virement">Virement</option>
-                        <option value="Espèces">Espèces</option>
-                    </select>
-                </div>
-                <div style="grid-column: 1 / -1; display:flex; gap:1rem; margin-top:0.5rem;">
-                    <button type="submit" style="background:#8b5cf6; color:#fff; border:none; padding:0.7rem 1.5rem; border-radius:4px; cursor:pointer; font-weight:500;">Enregistrer</button>
-                    <button type="reset" style="background:#333; color:#ccc; border:none; padding:0.7rem 1.5rem; border-radius:4px; cursor:pointer;">Effacer</button>
-                </div>
-            </form>
-        `;
+// Noms lisibles des catégories
+const categoryNames = {
+    'Logement': 'Logement',
+    'Transport': 'Transport',
+    'Alimentation': 'Alimentation',
+    'Loisirs': 'Loisirs',
+    'Électricité & Eau': 'Électricité & Eau',
+    'Santé': 'Santé',
+    'Éducation': 'Éducation',
+    'Shopping': 'Shopping',
+    'Dette': 'Dette',
+    'Autre': 'Autre'
+};
 
-        main.appendChild(formWrapper);
+// === FONCTIONS UTILITAIRES ===
+
+// Formater un montant en Ariary
+function formatAmount(amount) {
+    return new Intl.NumberFormat('fr-MG').format(Math.abs(amount));
+}
+
+// Formater une date pour l'affichage
+function formatDate(dateString) {
+    if (!dateString) return '-';
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('fr-FR', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }).format(date);
+}
+
+// Formater une date courte pour le calendrier
+function formatShortDate(dateString) {
+    if (!dateString) return '-';
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('fr-FR', {
+        day: '2-digit',
+        month: 'short'
+    }).format(date);
+}
+
+// Obtenir le nom lisible d'une catégorie
+function getCategoryName(category) {
+    return categoryNames[category] || category;
+}
+
+// Calculer la prochaine occurrence d'une dépense récurrente
+function getNextOccurrence(dateString, frequency) {
+    const baseDate = new Date(dateString);
+    const now = new Date();
+    let nextDate = new Date(baseDate);
+
+    // Si la date de base est dans le futur, on la garde
+    if (baseDate >= now) {
+        return baseDate;
     }
 
-    // 2️⃣ GESTION DE LA SOUMISSION & VALIDATION
-    function setupFormHandler() {
-        const form = document.getElementById('chargeForm');
-        if (!form) return;
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const title = document.getElementById('f-title').value.trim();
-            const amount = parseFloat(document.getElementById('f-amount').value);
-            const date = document.getElementById('f-date').value;
-            const category = document.getElementById('f-category').value;
-            const frequency = document.getElementById('f-frequency').value;
-            const paymentMethod = document.getElementById('f-payment').value;
-
-            // Validation stricte
-            if (!title || isNaN(amount) || amount <= 0 || !date || !category || !frequency || !paymentMethod) {
-                alert('⚠️ Tous les champs sont obligatoires et le montant doit être > 0.');
-                return;
+    // Sinon, on projette dans le futur selon la fréquence
+    switch (frequency) {
+        case 'Hebdomadaire':
+            while (nextDate < now) {
+                nextDate.setDate(nextDate.getDate() + 7);
             }
-
-            // Création de l'objet
-            const newCharge = {
-                id: Date.now(),
-                title,
-                amount: -Math.abs(amount), // Toujours négatif (dépense)
-                date,
-                category,
-                type: category,
-                frequency,
-                paymentMethod
-            };
-
-            // Mise à jour de l'état
-            expensesData.push(newCharge);
-            expensesData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            // Re-rendu
-            renderTimeline();
-            updateSummary();
-
-            // Reset + feedback
-            form.reset();
-            alert('✅ Charge ajoutée et liste mise à jour.');
-        });
+            break;
+        case 'Mensuel':
+            while (nextDate < now) {
+                nextDate.setMonth(nextDate.getMonth() + 1);
+            }
+            break;
+        case 'Trimestriel':
+            while (nextDate < now) {
+                nextDate.setMonth(nextDate.getMonth() + 3);
+            }
+            break;
+        case 'Annuel':
+            while (nextDate < now) {
+                nextDate.setFullYear(nextDate.getFullYear() + 1);
+            }
+            break;
+        case 'Unique':
+        default:
+            // Pour les dépenses uniques passées, on ne les affiche pas
+            return null;
     }
+    return nextDate;
+}
 
-    // 3️⃣ RENDU DE LA TIMELINE
-    function renderTimeline() {
-        const timeline = document.querySelector('.timeline');
-        if (!timeline) return;
+// Vérifier si une date est dans les 30 prochains jours
+function isWithinNext30Days(date) {
+    const thirtyDaysFromNow = new Date();
+    thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+    return date >= today && date <= thirtyDaysFromNow;
+}
 
-        timeline.innerHTML = expensesData.map(exp => {
-            const days = getDaysRemaining(exp.date);
-            const fDate = new Date(exp.date).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' }).toUpperCase();
-            const fAmount = exp.amount.toLocaleString('fr-FR') + ' Ar';
+// === CHARGEMENT ET FILTRAGE DES DONNÉES ===
 
-            return `
-                <div class="timeline-item ${exp.category.toLowerCase()}">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">${fDate}</div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">${exp.title}</div>
-                        <div class="timeline-meta">${exp.category} · ${exp.frequency} · ${exp.paymentMethod}</div>
-                        <div class="timeline-days">${days}</div>
-                    </div>
-                    <div class="timeline-amount">${fAmount}</div>
-                </div>
-            `;
-        }).join('');
+// Charger toutes les dépenses du localStorage
+function loadExpenses() {
+    try {
+        const stored = localStorage.getItem('expenses');
+        return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+        console.error('Erreur de chargement des dépenses:', e);
+        return [];
     }
+}
 
-    // 4️⃣ MISE À JOUR DES CARTES RÉSUMÉ
-    function updateSummary() {
-        const total = expensesData.reduce((sum, e) => sum + Math.abs(e.amount), 0);
-        const count = expensesData.length;
-        const today = new Date();
-        const next = expensesData.find(e => new Date(e.date) >= today);
+// Filtrer et préparer les dépenses à venir
+function getUpcomingExpenses(filter = 'all') {
+    const expenses = loadExpenses();
+    const upcoming = [];
 
-        document.querySelector('.card:nth-child(1) .card-value').textContent = `−${total.toLocaleString('fr-FR')} Ar`;
-        document.querySelector('.card:nth-child(1) .card-subtitle').textContent = `${count} prélèvements`;
-
-        if (next) {
-            const nextDate = new Date(next.date).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
-            document.querySelector('.card:nth-child(2) .card-value').textContent = next.title.split(' ')[0];
-            document.querySelector('.card:nth-child(2) .card-subtitle').textContent = `${nextDate} · ${getDaysRemaining(next.date)}`;
+    expenses.forEach(expense => {
+        // Ignorer les revenus
+        if (expense.type === 'income') return;
+        
+        // Appliquer le filtre de fréquence
+        if (filter !== 'all' && expense.frequency?.toLowerCase() !== filter.toLowerCase()) {
+            return;
         }
 
-        // Solde projeté (base exemple : 1 557 000 Ar)
-        const base = 1557000;
-        const projected = base - total;
-        const bal = document.querySelector('.card:nth-child(3) .card-value');
-        bal.textContent = (projected >= 0 ? '+' : '') + projected.toLocaleString('fr-FR') + ' Ar';
-        bal.style.color = projected >= 0 ? '#10b981' : '#ef4444';
-    }
+        // Calculer la prochaine occurrence
+        const nextDate = getNextOccurrence(expense.date, expense.frequency);
+        
+        // Si la prochaine occurrence est dans les 30 prochains jours
+        if (nextDate && isWithinNext30Days(nextDate)) {
+            upcoming.push({
+                ...expense,
+                nextOccurrence: nextDate,
+                displayDate: nextDate.toISOString().split('T')[0]
+            });
+        }
+    });
 
-    // 5️⃣ UTILITAIRE : JOURS RESTANTS
-    function getDaysRemaining(dateStr) {
-        const now = new Date(); now.setHours(0,0,0,0);
-        const target = new Date(dateStr); target.setHours(0,0,0,0);
-        const diff = Math.ceil((target - now) / 86400000);
-        if (diff < 0) return 'Passé';
-        if (diff === 0) return "Aujourd'hui";
-        if (diff === 1) return 'Dans 1 jour';
-        return `Dans ${diff} jours`;
-    }
+    // Trier par date croissante
+    return upcoming.sort((a, b) => a.nextOccurrence - b.nextOccurrence);
+}
 
-    // 🚀 INITIALISATION
-    initForm();
-    setupFormHandler();
-    renderTimeline();
-    updateSummary();
-});
+// === AFFICHAGE DANS L'INTERFACE ===
+
+// Mettre à jour les cartes de résumé
+function updateSummaryCards(expenses) {
+    const totalMonth = expenses.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+    const totalCount = expenses.length;
+    
+    // Total à payer ce mois
+    document.getElementById('total-month').textContent = `${formatAmount(totalMonth)} Ar`;
+    document.getElementById('total-count').textContent = `${totalCount} prélèvement${totalCount > 1 ? 's' : ''}`;
+    
+    // Prochain paiement
+    if (expenses.length > 0) {
+        const next = expenses[0];
+        document.getElementById('next-payment-title').textContent = next.libelle || next.category || 'Sans titre';
+        document.getElementById('next-payment-date').textContent = `${formatShortDate(next.displayDate)} • ${getCategoryName(next.category)}`;
+    } else {
+        document.getElementById('next-payment-title').textContent = 'Aucun';
+        document.getElementById('next-payment-date').textContent = 'Aucune charge prévue';
+    }
+    
+    // Solde projeté (simplifié - à adapter avec vos revenus)
+    const projectedBalance = -totalMonth; // À remplacer par: revenus - dépenses
+    const balanceEl = document.getElementById('projected-balance');
+    balanceEl.textContent = `${projectedBalance >= 0 ? '+' : '-'}${formatAmount(projectedBalance)} Ar`;
+    balanceEl.className = `card-value ${projectedBalance >= 0 ? 'green' : 'red'}`;
+}
+
+// Générer un élément de timeline pour une dépense
+function createTimelineItem(expense) {
+    const icon = categoryIcons[expense.category] || '📌';
+    const day = expense.nextOccurrence.getDate();
+    const month = expense.nextOccurrence.toLocaleDateString('fr-FR', { month: 'short' });
+    const dayName = expense.nextOccurrence.toLocaleDateString('fr-FR', { weekday: 'short' });
+    
+    return `
+        <div class="timeline-item" data-frequency="${expense.frequency || 'Unique'}">
+            <div class="timeline-date">
+                <div class="date-day">${day}</div>
+                <div class="date-month">${month}</div>
+                <div class="date-weekday">${dayName}</div>
+            </div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <span class="timeline-icon">${icon}</span>
+                    <span class="timeline-title">${expense.libelle || getCategoryName(expense.category)}</span>
+                    <span class="timeline-badge ${expense.frequency === 'Mensuel' ? 'badge-monthly' : 'badge-other'}">
+                        ${expense.frequency || 'Unique'}
+                    </span>
+                </div>
+                <div class="timeline-details">
+                    <span class="detail-category">${getCategoryName(expense.category)}</span>
+                    <span class="detail-payment">• ${expense.payment || 'Paiement'}</span>
+                </div>
+                <div class="timeline-amount negative">
+                    -${formatAmount(expense.amount)} Ar
+                </div>
+                ${expense.description ? `<div class="timeline-description">${expense.description}</div>` : ''}
+            </div>
+        </div>
+    `;
+}
+
+// Afficher la timeline des dépenses
+function renderTimeline(expenses) {
+    const timeline = document.getElementById('timeline');
+    
+    if (!timeline) {
+        console.warn('Élément #timeline non trouvé');
+        return;
+    }
+    
+    if (expenses.length === 0) {
+        timeline.innerHTML = `
+            <div class="timeline-empty">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
+                <p style="color: #666; font-size: 1.1rem;">Aucune dépense prévue dans les 30 prochains jours</p>
+                <a href="addDepense.html" class="btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <span>+</span> Ajouter une charge
+                </a>
+            </div>
+        `;
+        return;
+    }
+    
+    timeline.innerHTML = expenses.map(createTimelineItem).join('');
+}
+
+// === GESTION DES FILTRES ===
+
+function setupFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Mise à jour de l'état actif
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Application du filtre
+            const filter = btn.dataset.filter;
+            const expenses = getUpcomingExpenses(filter);
+            renderTimeline(expenses);
+            updateSummaryCards(expenses);
+        });
+    });
+}
+
+// === INITIALISATION ===
+
+function initReports() {
+    // Charger et afficher les données
+    const expenses = getUpcomingExpenses('all');
+    updateSummaryCards(expenses);
+    renderTimeline(expenses);
+    
+    // Activer les filtres
+    setupFilters();
+    
+    // Rafraîchir automatiquement si le stockage change (onglets multiples)
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'expenses') {
+            const expenses = getUpcomingExpenses('all');
+            updateSummaryCards(expenses);
+            renderTimeline(expenses);
+        }
+    });
+    
+    console.log('📊 Reports initialisés -', expenses.length, 'dépenses à venir');
+}
+
+// Lancer l'initialisation quand le DOM est prêt
+document.addEventListener('DOMContentLoaded', initReports);
+
+// Export pour utilisation externe si nécessaire
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        loadExpenses,
+        getUpcomingExpenses,
+        formatAmount,
+        formatDate
+    };
+}
