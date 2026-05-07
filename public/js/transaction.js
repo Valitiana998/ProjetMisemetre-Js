@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
     
-    // === ICÔNES PAR CATÉGORIE ===
+  
     const categoryIcons = {
         salaire: '💰', business: '💼', investissement: '📈',
         logement: '🏠', transport: '🚗', alimentation: '🍔',

@@ -10,16 +10,16 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-text">Ar Finance Manager</div>
+            <div class="sidebar-header">
+                    <h1>Ar Finance Manager</h1>
             </div>
-            <nav>
-            <a href="index.html" class="menu-item active">Tableau de Bord</a>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item ">Tableau de Bord</a>
                 <a href="transactions.html" class="menu-item">Budget</a>
                 <a href="goals.html" class="menu-item"> Objectif</a>
-                <a href="reports.html" class="menu-item">A venir</a>
+                <a href="reports.html" class="menu-item active">A venir</a>
                 <a href="historique.html" class="menu-item">historique</a>
-                <a href="profile.html" class="menu-item">Paramètres</a>
+                <a href="settings.html" class="menu-item">Paramètres</a>
             </nav>
         </aside>
 
@@ -60,10 +60,10 @@
                     <div class="filter-buttons">
                         <button class="filter-btn active" data-filter="all">Tous</button>
                         <button class="filter-btn" data-filter="mensuel">Mensuel</button>
-                        <button class="filter-btn" data-filter="annuel">Annuel</button>
                     </div>
                 </div>
-                <div class="timeline" id="timeline"></div>
+                <div class="timeline" id="timeline">
+                </div>
             </div>
         </main>
     </div>

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Vérification avant d'ajouter l'écouteur d'événement
+
   if (prevMonthBtn) {
     prevMonthBtn.addEventListener("click", () => {
       currentDate.setMonth(currentDate.getMonth() - 1);

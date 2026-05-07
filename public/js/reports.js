@@ -94,29 +94,18 @@ function getNextOccurrence(dateString, frequency) {
                 nextDate.setMonth(nextDate.getMonth() + 3);
             }
             break;
-        case 'Annuel':
-            while (nextDate < now) {
-                nextDate.setFullYear(nextDate.getFullYear() + 1);
-            }
-            break;
-        case 'Unique':
+   case 'Unique':
         default:
-            // Pour les dépenses uniques passées, on ne les affiche pas
             return null;
     }
     return nextDate;
 }
-
-// Vérifier si une date est dans les 30 prochains jours
 function isWithinNext30Days(date) {
     const thirtyDaysFromNow = new Date();
     thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
     return date >= today && date <= thirtyDaysFromNow;
 }
 
-// === CHARGEMENT ET FILTRAGE DES DONNÉES ===
-
-// Charger toutes les dépenses du localStorage
 function loadExpenses() {
     try {
         const stored = localStorage.getItem('expenses');
@@ -126,17 +115,14 @@ function loadExpenses() {
         return [];
     }
 }
-
-// Filtrer et préparer les dépenses à venir
 function getUpcomingExpenses(filter = 'all') {
     const expenses = loadExpenses();
     const upcoming = [];
 
     expenses.forEach(expense => {
-        // Ignorer les revenus
+        
         if (expense.type === 'income') return;
         
-        // Appliquer le filtre de fréquence
         if (filter !== 'all' && expense.frequency?.toLowerCase() !== filter.toLowerCase()) {
             return;
         }
@@ -215,7 +201,12 @@ function createTimelineItem(expense) {
                 <div class="timeline-amount negative">
                     -${formatAmount(expense.amount)} Ar
                 </div>
+                
                 ${expense.description ? `<div class="timeline-description">${expense.description}</div>` : ''}
+                <div class="tx-actions">
+                    <button class="btn btn-icon" onclick="editDepense('')" style="background:none; border:none; cursor:pointer; padding: 4px;">✏️</button>
+                     <button class="btn btn-icon danger" onclick="deleteDepense('')" style="background:none; border:none; cursor:pointer; padding: 4px; color: #e74c3c;">✕</button>
+                 </div>
             </div>
         </div>
     `;
@@ -235,9 +226,10 @@ function renderTimeline(expenses) {
             <div class="timeline-empty">
                 <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
                 <p style="color: #666; font-size: 1.1rem;">Aucune dépense prévue dans les 30 prochains jours</p>
-                <a href="addDepense.html" class="btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <a href="../html/addDepenese.html" class="btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
                     <span>+</span> Ajouter une charge
                 </a>
+                </button>
             </div>
         `;
         return;

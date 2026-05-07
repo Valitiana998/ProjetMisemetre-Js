@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         expenses.push(expense);
         localStorage.setItem('expenses', JSON.stringify(expenses));
 
-        alert('✅ Dépense ajoutée !');
+        alert('Dépense ajoutée !');
         expenseForm.reset();
 
         

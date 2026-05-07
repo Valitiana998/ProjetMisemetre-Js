@@ -19,6 +19,25 @@ body {
     height: 100vh;
     overflow: hidden;
 }
+.menu-item {
+    padding: 12px 20px;
+    color: #888;
+    text-decoration: none;
+    display: block;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.menu-item.active {
+    background-color: #2d2d3a; /* ou la couleur de votre choix */
+    color: #4d9fff;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background-color: #252530;
+    color: #fff;
+}
 
 /* Sidebar */
 .sidebar {
@@ -480,4 +499,82 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #6ba0ff; /* ✅ Corrigé */
+}
+/* =========================================
+   MENU SIDEBAR - Styles avec état ACTIVE
+   ========================================= */
+
+/* Style de base des items du menu */
+.sidebar-menu .menu-item {
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #a0a0a0;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    display: block;
+    position: relative;
+}
+
+/* ✅ Effet au survol (hover) */
+.sidebar-menu .menu-item:hover {
+    background-color: #2a2a35;
+    color: #e0e0e0;
+    transform: translateX(2px);
+}
+
+/* ✅ ✅ ✅ STYLE ACTIVE - C'est ici que se fait l'effet de fond coloré */
+.sidebar-menu .menu-item.active {
+    background: linear-gradient(135deg, #2d3550 0%, #252d40 100%);
+    color: #6ba0ff;
+    font-weight: 600;
+    border-left: 3px solid #6ba0ff;
+    box-shadow: 0 4px 12px rgba(107, 160, 255, 0.15);
+}
+
+/* ✅ Petit indicateur visuel supplémentaire pour l'actif */
+.sidebar-menu .menu-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: #6ba0ff;
+    border-radius: 0 4px 4px 0;
+    opacity: 0.8;
+}
+
+/* ✅ Optionnel : effet subtil d'animation à l'activation */
+.sidebar-menu .menu-item.active {
+    animation: pulseActive 0.3s ease-out;
+}
+
+@keyframes pulseActive {
+    0% {
+        box-shadow: 0 0 0 0 rgba(107, 160, 255, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 12px rgba(107, 160, 255, 0.15);
+    }
+}
+
+/* ✅ Responsive : adaptation mobile */
+@media (max-width: 768px) {
+    .sidebar-menu .menu-item {
+        padding: 10px 12px;
+        font-size: 13px;
+        text-align: center;
+    }
+    
+    .sidebar-menu .menu-item.active {
+        border-left: none;
+        border-bottom: 2px solid #6ba0ff;
+    }
+    
+    .sidebar-menu .menu-item.active::before {
+        display: none;
+    }
 }

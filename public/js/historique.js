@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // === ÉLÉMENTS DOM ===
+  
     const transactionsList = document.querySelector('.transaction-table tbody');
     const pageinfo = document.querySelector('.page-info');
     const btnExport = document.querySelector('.btn-export');
     
-    // Stats
+
     const statResults = document.querySelectorAll('.stat-value')[0];
     const statRevenus = document.querySelectorAll('.stat-value')[1];
     const statDepenses = document.querySelectorAll('.stat-value')[2];
     const statSolde = document.querySelectorAll('.stat-value')[3];
     const statMoyenne = document.querySelectorAll('.stat-value')[4];
     
-    // Filtres
+  
     const periodBtns = document.querySelectorAll('.period-btn');
     const dateInputs = document.querySelectorAll('.date-input');
     const categorySelect = document.querySelector('.category-select');
@@ -20,16 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeFilters = document.querySelector('.active-filters');
     const tagCloses = document.querySelectorAll('.tag-close');
     
-    // Pagination
+  
     const pageButtons = document.querySelectorAll('.page-btn');
     
-    // État de l'application
+
     let allTransactions = [];
     let filteredTransactions = [];
     let currentPage = 1;
     const itemsPerPage = 10;
     
-    // Mapping catégories FR → clés JS
+
     const categoryMap = {
         'Toutes catégories': null,
         'Santé': 'sante',
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Autre': 'autre'
     };
     
-    // Icônes par catégorie
+    
     const categoryIcons = {
         salaire: '💰', business: '💼', investissement: '📈',
         logement: '🏠', transport: '🚗', alimentation: '🍔',
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         education: '📚', shopping: '🛍️', autre: '📌', revenu: '💵'
     };
     
-    // === INITIALISATION ===
+  
     function init() {
         loadTransactions();
         applyFilters();
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupEventListeners();
     }
     
-    // === CHARGEMENT DES TRANSACTIONS ===
+  
     function loadTransactions() {
         const stored = localStorage.getItem('transactions');
         allTransactions = stored ? JSON.parse(stored) : [];

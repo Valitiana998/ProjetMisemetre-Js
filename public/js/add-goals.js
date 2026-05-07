@@ -1,4 +1,3 @@
-// Add Goal/Objective Form Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form') || document.getElementById('goalForm');
     
@@ -7,14 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Get form fields
+  
     const goalNameInput = document.getElementById('goalName') || form.querySelector('input[name="goalName"]');
     const targetAmountInput = document.getElementById('targetAmount') || form.querySelector('input[name="targetAmount"]');
     const dueDateInput = document.getElementById('dueDate') || form.querySelector('input[name="dueDate"]');
     const goalIconInput = document.getElementById('goalIcon') || form.querySelector('input[name="goalIcon"]');
     const goalDescriptionInput = document.getElementById('goalDescription') || form.querySelector('textarea[name="goalDescription"]');
 
-    // If form fields don't exist in HTML, create them dynamically
     if (!form.innerHTML.includes('goalName')) {
         form.innerHTML = `
             <div style="display: flex; flex-direction: column; gap: 20px; padding: 30px; background: #2d2d33; border-radius: 12px; color: #e0e0e0;">
@@ -88,18 +86,18 @@ document.addEventListener('DOMContentLoaded', function() {
             active: true
         };
 
-        // Get existing goals
+      
         const existingGoals = JSON.parse(localStorage.getItem('goals')) || [];
         existingGoals.push(newGoal);
 
         // Save to localStorage
         localStorage.setItem('goals', JSON.stringify(existingGoals));
 
-        alert('✅ Objectif créé avec succès!');
+        alert('Objectif créé avec succès!');
         window.location.href = 'goals.html';
     });
 
-    // Handle cancel button
+    
     const cancelBtn = document.getElementById('cancelBtn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function() {

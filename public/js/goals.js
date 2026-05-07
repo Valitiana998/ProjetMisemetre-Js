@@ -1,4 +1,3 @@
-// Goals Management Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const goalsContainer = document.querySelector('.goals-container');
     const newGoalBtn = document.querySelector('.page-header .btn-primary');
@@ -9,17 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Get goals from localStorage
     function getGoals() {
         return JSON.parse(localStorage.getItem('goals')) || [];
     }
 
-    // Save goals to localStorage
+    
     function saveGoals(goals) {
         localStorage.setItem('goals', JSON.stringify(goals));
     }
 
-    // Create goal card
+  
     function createGoalCard(goal) {
         const card = document.createElement('div');
         card.className = `goal-card ${goal.active ? 'active' : ''}`;
@@ -57,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <div class="goal-actions">
-                <button class="btn-secondary edit-goal" data-id="${goal.id}">Éditer</button>
                 <button class="btn-tertiary add-funds" data-id="${goal.id}">Ajouter des fonds</button>
                 <button class="btn-danger delete-goal" data-id="${goal.id}">Supprimer</button>
             </div>
@@ -86,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const goal = goals.find(g => g.id === id);
                     console.log('Editing goal:', goal);
                     alert('Édition de l\'objectif: ' + goal.name);
-                    // TODO: Open edit form
                 });
             });
 
@@ -99,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         goal.saved += parseFloat(amount);
                         saveGoals(goals);
                         renderGoals();
-                        alert('✅ Fonds ajoutés avec succès!');
+                        alert('Fonds ajoutés avec succès!');
                     }
                 });
             });
@@ -115,15 +111,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
+
+    
+        updateSummaryCards(goals);
     }
 
-    // Initialize
-    renderGoals();
+    function updateSummaryCards(expenses) {
+     
+        const goals = JSON.parse(localStorage.getItem('goals')) || [];
+        const solde =JSON.parse(localStorage.getItem('solde')) || [];
+        const totalRemaining = goals.reduce((sum, g) => {
+            const saved = parseFloat(g.saved) || 0;
+            const target = parseFloat(g.target) || 0;
+            return sum + Math.max(0, target - saved);
+        }, 0);
 
-    // Listen for goal updates from other pages
+        const totalCount = goals.length;
+
+        const totalMonthEl = document.getElementById('total-month');
+        if (totalMonthEl) {
+            totalMonthEl.textContent = `${totalRemaining.toLocaleString('fr-FR')} Ar`;
+        }
+
+        const totalCountEl = document.getElementById('next-payment-title');
+        totalCountEl.textContent = ` ${totalCount}`;
+       
+    }
+
+    renderGoals();
     window.addEventListener('storage', function(e) {
         if (e.key === 'goals') {
             renderGoals();
         }
     });
 });
+
+
+
