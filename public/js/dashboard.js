@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         today.setHours(0, 0, 0, 0);
         const endOfWeek = new Date(today);
         endOfWeek.setDate(today.getDate() + 7);
-
+        if(currentMonth === 11 && endOfWeek.getMonth() === 0) {
         const upcoming = expenses
             .filter(tx => {
                 if (tx.type === 'income' || tx.type === 'revenu') return false;
