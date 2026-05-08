@@ -68,11 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadTransactions() {
         const stored = localStorage.getItem('transactions');
         allTransactions = stored ? JSON.parse(stored) : [];
-        // Tri par date décroissante
         allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
     }
-    
-    // === FILTRAGE ===
+
     function applyFilters() {
         const selectedPeriod = document.querySelector('.period-btn.active')?.textContent;
         const [startDate, endDate] = Array.from(dateInputs).map(input => input.value);
@@ -82,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!t.date) return false;
             const txDate = new Date(t.date);
             
-            // Filtre période
             if (selectedPeriod === 'Mois') {
                 const now = new Date();
                 if (txDate.getMonth() !== now.getMonth() || txDate.getFullYear() !== now.getFullYear()) {
@@ -110,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
         });
         
-        currentPage = 1; // Reset pagination après filtrage
+        currentPage = 1;
     }
     
     // === AFFICHAGE TABLEAU ===
@@ -189,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         pageinfo.textContent = `Affichage ${start}–${end} sur ${filteredTransactions.length}`;
         
-        // Mettre à jour les boutons
+  
         pageButtons.forEach(btn => {
             if (btn.textContent.includes('Précédent')) {
                 btn.classList.toggle('disabled', currentPage === 1);
@@ -201,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // === GESTION ÉVÉNEMENTS ===
     function setupEventListeners() {
-        // Boutons période
+   
         periodBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 periodBtns.forEach(b => b.classList.remove('active'));
@@ -214,10 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Changement dates
+  
         dateInputs.forEach(input => {
             input.addEventListener('change', () => {
-                // Activer "Personnalisé" si date modifiée
+                
                 if (input.value) {
                     periodBtns.forEach(b => b.classList.remove('active'));
                     document.querySelector('.period-btn:nth-child(4)')?.classList.add('active');
@@ -230,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Changement catégorie
+  
         categorySelect?.addEventListener('change', () => {
             applyFilters();
             renderTable();
@@ -239,17 +236,17 @@ document.addEventListener('DOMContentLoaded', () => {
             updateActiveFilters();
         });
         
-        // Bouton réinitialiser
+     
         btnReset?.addEventListener('click', () => {
-            // Reset période
+        
             periodBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
-            // Reset dates (mois en cours)
+           
             const now = new Date();
             const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
             const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
             dateInputs[0].value = firstDay.toISOString().split('T')[0];
             dateInputs[1].value = lastDay.toISOString().split('T')[0];
-            // Reset catégorie
+         
             if (categorySelect) categorySelect.value = 'Toutes catégories';
             
             applyFilters();
@@ -259,15 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
             updateActiveFilters();
         });
         
-        // Suppression tags filtres
+      
         tagCloses.forEach(tag => {
             tag.addEventListener('click', function() {
                 this.parentElement.remove();
-                // Ici on pourrait réappliquer les filtres restants
+          
             });
         });
         
-        // Pagination
+        
         pageButtons.forEach(btn => {
             btn.addEventListener('click', function() {
                 const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
@@ -281,15 +278,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Export CSV
+    
         btnExport?.addEventListener('click', exportToCSV);
     }
     
-    // === MISE À JOUR TAGS FILTRES ACTIFS ===
+
     function updateActiveFilters() {
         if (!activeFilters) return;
         
-        // Garder seulement le label
+        
         const label = activeFilters.querySelector('.filter-label-small');
         activeFilters.innerHTML = '';
         if (label) activeFilters.appendChild(label);
@@ -322,11 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         tag.querySelector('.tag-close')?.addEventListener('click', function() {
             tag.remove();
-            // Optionnel : réappliquer les filtres
+         
         });
     }
     
-    // === EXPORT CSV ===
     function exportToCSV() {
         if (filteredTransactions.length === 0) {
             alert('Aucune donnée à exporter.');
@@ -403,6 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return div.innerHTML;
     }
     
-    // === LANCEMENT ===
+
     init();
 });

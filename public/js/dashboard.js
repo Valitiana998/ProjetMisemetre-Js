@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ════════════════════════════════════════
@@ -44,33 +47,76 @@ document.addEventListener('DOMContentLoaded', () => {
        2. UTILITAIRES
     ════════════════════════════════════════ */
 
-    function formatAr(n) {
-        return new Intl.NumberFormat('fr-MG', { maximumFractionDigits: 0 })
-            .format(Math.abs(n)) + ' Ar';
+    // Formatage Ariary avec option de signe
+    function formatAr(n, keepSign = false) {
+        const num = parseFloat(n) || 0;
+        const formatted = new Intl.NumberFormat('fr-MG', { maximumFractionDigits: 0 })
+            .format(Math.abs(num));
+        if (keepSign) {
+            return (num < 0 ? '−' : num > 0 ? '+' : '') + formatted + ' Ar';
+        }
+        return formatted + ' Ar';
     }
+
 
     function isInCurrentMonth(dateStr) {
         if (!dateStr) return false;
-        const d = new Date(dateStr);
-        return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+        try {
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return false;
+            return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+        } catch (e) {
+            return false;
+        }
     }
 
+
     function loadAllTransactions() {
-        const tx  = JSON.parse(localStorage.getItem('transactions')) || [];
-        const dep = JSON.parse(localStorage.getItem('depenses'))     || [];
-        const depNorm = dep.map(d => ({
-            ...d,
-            type:     d.type     || 'expense',
-            category: d.category || 'autre',
-        }));
-        return [...tx, ...depNorm];
+        try {
+            const tx = JSON.parse(localStorage.getItem('transactions')) || [];
+            const dep = JSON.parse(localStorage.getItem('depenses')) || [];
+            
+            const normalizeDate = (dateStr) => {
+                if (!dateStr) return null;
+                const d = new Date(dateStr);
+                return isNaN(d.getTime()) ? null : d.toISOString().split('T')[0];
+            };
+
+            const depNorm = dep.map(d => ({
+                ...d,
+                type: d.type || 'expense',
+                category: d.category || 'autre',
+                date: normalizeDate(d.date)
+            }));
+            
+            const txNorm = tx.map(t => ({
+                ...t,
+                date: normalizeDate(t.date)
+            }));
+            
+            return [...txNorm, ...depNorm];
+        } catch (e) {
+            console.error('❌ Erreur chargement transactions:', e);
+            return [];
+        }
     }
 
     function loadGoals() {
-        return JSON.parse(localStorage.getItem('goals')) || [];
+        try {
+            return JSON.parse(localStorage.getItem('goals')) || [];
+        } catch (e) {
+            console.error('❌ Erreur chargement objectifs:', e);
+            return [];
+        }
     }
+
     function loadExpenses() {
-        return JSON.parse(localStorage.getItem('expenses')) || [];
+        try {
+            return JSON.parse(localStorage.getItem('expenses')) || [];
+        } catch (e) {
+            console.error('❌ Erreur chargement dépenses à venir:', e);
+            return [];
+        }
     }
 
     /* ════════════════════════════════════════
@@ -78,10 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ════════════════════════════════════════ */
 
     function renderStats(transactions) {
-        let revenus  = 0;
-        let depenses = 0;
-        let nbEntrees    = 0;
-        let nbTransactions = 0;
+        let revenus = 0, depenses = 0;
+        let nbEntrees = 0, nbTransactions = 0;
 
         transactions.forEach(tx => {
             if (!isInCurrentMonth(tx.date)) return;
@@ -95,40 +139,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const solde = revenus - depenses;
 
-        // Variation vs mois précédent
+   
         const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
         const prevYear  = currentMonth === 0 ? currentYear - 1 : currentYear;
         let prevRev = 0, prevDep = 0;
+        
         transactions.forEach(tx => {
-            const d = tx.date ? new Date(tx.date) : null;
-            if (!d) return;
-            if (d.getMonth() !== prevMonth || d.getFullYear() !== prevYear) return;
-            const amt = parseFloat(tx.amount) || 0;
-            if (tx.type === 'income' || tx.type === 'revenu') prevRev += amt;
-            else prevDep += amt;
+            if (!tx.date) return;
+            try {
+                const d = new Date(tx.date);
+                if (isNaN(d.getTime())) return;
+                if (d.getMonth() !== prevMonth || d.getFullYear() !== prevYear) return;
+                const amt = parseFloat(tx.amount) || 0;
+                if (tx.type === 'income' || tx.type === 'revenu') prevRev += amt;
+                else prevDep += amt;
+            } catch (e) { /* ignore */ }
         });
         const prevSolde = prevRev - prevDep;
 
-        // Solde
+        // Affichage Solde
         const soldeAmountEl = document.getElementById('soldeAmount');
         const soldeChangeEl = document.getElementById('soldeChange');
         if (soldeAmountEl) {
-            soldeAmountEl.textContent = formatAr(solde);
+            soldeAmountEl.textContent = formatAr(solde, true);
             soldeAmountEl.style.color = solde >= 0 ? '#e0e0e0' : '#ef4444';
         }
         if (soldeChangeEl) {
             if (prevSolde !== 0) {
                 const pct = ((solde - prevSolde) / Math.abs(prevSolde) * 100).toFixed(1);
                 const sign = pct >= 0 ? '+' : '';
-                soldeChangeEl.textContent = `${sign}${pct} % vs mois dernier`;
+                soldeChangeEl.textContent = `${sign}${pct}% vs mois dernier`;
                 soldeChangeEl.className = 'change ' + (pct >= 0 ? 'positive' : 'negative');
             } else {
-                soldeChangeEl.textContent = solde > 0 ? 'Aucune donnée mois dernier' : '—';
+                soldeChangeEl.textContent = '—';
                 soldeChangeEl.className = 'change';
             }
         }
 
-        // Revenus
+   
         const revAmountEl = document.getElementById('revenusAmount');
         const revChangeEl = document.getElementById('revenusChange');
         if (revAmountEl) revAmountEl.textContent = formatAr(revenus);
@@ -138,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : `${nbEntrees} entrée${nbEntrees > 1 ? 's' : ''} ce mois`;
         }
 
-        // Dépenses
+  
         const depAmountEl = document.getElementById('depensesAmount');
         const depChangeEl = document.getElementById('depensesChange');
         if (depAmountEl) depAmountEl.textContent = formatAr(depenses);
@@ -255,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ════════════════════════════════════════
-       5. À VENIR CETTE SEMAINE
+       5. À VENIR CETTE SEMAINE - 
     ════════════════════════════════════════ */
 
     function renderUpcoming(expenses) {
@@ -266,14 +314,19 @@ document.addEventListener('DOMContentLoaded', () => {
         today.setHours(0, 0, 0, 0);
         const endOfWeek = new Date(today);
         endOfWeek.setDate(today.getDate() + 7);
-        if(currentMonth === 11 && endOfWeek.getMonth() === 0) {
+
         const upcoming = expenses
             .filter(tx => {
                 if (tx.type === 'income' || tx.type === 'revenu') return false;
-                const d = tx.date ? new Date(tx.date) : null;
-                if (!d) return false;
-                d.setHours(0, 0, 0, 0);
-                return d >= today && d <= endOfWeek;
+                if (!tx.date) return false;
+                try {
+                    const d = new Date(tx.date);
+                    if (isNaN(d.getTime())) return false;
+                    d.setHours(0, 0, 0, 0);
+                    return d >= today && d <= endOfWeek;
+                } catch (e) {
+                    return false;
+                }
             })
             .sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -283,29 +336,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const DOT_COLORS = ['#5B7FD4','#1BC47D','#FFA500','#9B59B6','#E74C3C'];
-        expenses.forEach(tx => {
-                    upcomingList.innerHTML = upcoming.map((tx, i) => {
-            const txDate  = new Date(tx.date);
+        
+        
+        upcomingList.innerHTML = upcoming.map((tx, i) => {
+            const txDate = new Date(tx.date);
             const diffDays = Math.round((txDate - today) / 86400000);
             const diffLabel = diffDays === 0 ? "aujourd'hui" : diffDays === 1 ? 'demain' : `dans ${diffDays} jours`;
-            const dateStr   = txDate.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
-            const color     = DOT_COLORS[i % DOT_COLORS.length];
-            const label     = tx.description || tx.category || 'Dépense';
+            const dateStr = txDate.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+            const color = DOT_COLORS[i % DOT_COLORS.length];
+            const label = tx.description || tx.category || 'Dépense';
+            const amount = parseFloat(tx.amount) || 0;
 
             return `<div class="upcoming-item">
                 <div class="item-left">
-                    <span class="dot" style="background-color:${color}"></span>
-                    <div class="item-info">
-                        <p>${label}</p>
-                        <span class="date">${dateStr} · ${diffLabel}</span>
+                    <span class="dot" style="background-color:${color};width:8px;height:8px;border-radius:50%;display:inline-block;"></span>
+                    <div class="item-info" style="margin-left:8px;">
+                        <p style="margin:0;font-size:13px;color:#e0e0e0;">${label}</p>
+                        <span class="date" style="font-size:11px;color:#8a92a8;">${dateStr} · ${diffLabel}</span>
                     </div>
                 </div>
-                <p class="amount negative">−${formatAr(parseFloat(tx.amount) || 0)}</p>
+                <p class="amount negative" style="margin:0;font-weight:600;color:#ef4444;">−${formatAr(amount)}</p>
             </div>`;
         }).join('');
-
-        });
-
     }
 
     /* ════════════════════════════════════════
@@ -337,14 +389,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.className = 'objective-item';
             div.innerHTML = `
-                <div class="objective-header">
-                    <p class="objective-title">${name}</p>
-                    <span class="percentage">${pct} %</span>
+                <div class="objective-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <p class="objective-title" style="margin:0;font-size:13px;color:#e0e0e0;">${name}</p>
+                    <span class="percentage" style="font-size:12px;color:#6ba0ff;">${pct}%</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width:0%;"></div>
+                <div class="progress-bar" style="height:6px;background:#2d2d33;border-radius:3px;overflow:hidden;">
+                    <div class="progress-fill" style="height:100%;background:linear-gradient(90deg,#6ba0ff,#5B7FD4);width:0%;transition:width 0.4s ease;"></div>
                 </div>
-                <p class="objective-text">${formatAr(current)} sur ${formatAr(target)}</p>`;
+                <p class="objective-text" style="margin:8px 0 0;font-size:11px;color:#8a92a8;">${formatAr(current)} sur ${formatAr(target)}</p>`;
             objCard.appendChild(div);
 
             requestAnimationFrame(() => {
@@ -387,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="display:flex;align-items:center;gap:12px;">
                     <span style="width:10px;height:10px;border-radius:50%;background:${isRevenu ? '#1bc47d' : conf.color};display:inline-block;flex-shrink:0;"></span>
                     <div>
-                        <p style="font-size:13px;font-weight:500;color:#e0e0e0;">${label}</p>
+                        <p style="font-size:13px;font-weight:500;color:#e0e0e0;margin:0;">${label}</p>
                         <span style="font-size:11px;color:#8a92a8;">${dateStr}${cat ? ' · ' + (conf.label || cat) : ''}</span>
                     </div>
                 </div>
@@ -395,7 +447,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
         }).join('');
 
-        // Supprimer la bordure du dernier item
         const items = container.querySelectorAll('div[style*="border-bottom"]');
         if (items.length > 0) items[items.length - 1].style.borderBottom = 'none';
     }
@@ -418,7 +469,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderAll() {
         const transactions = loadAllTransactions();
         const goals        = loadGoals();
-        const expenses      = loadExpenses();
+        const expenses     = loadExpenses();
+
 
         renderGreeting();
         renderStats(transactions);
@@ -434,10 +486,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateMonthDisplay();
 
+
     window.addEventListener('storage', (e) => {
-        if (['transactions', 'goals', 'depenses','expenses'].includes(e.key)) {
+        if (['transactions', 'goals', 'depenses', 'expenses'].includes(e.key)) {
             renderAll();
         }
     });
 
+    window.refreshDashboard = renderAll;
 });

@@ -1,9 +1,4 @@
-/**
- * settings.js — Ar Finance Manager
- * Gère les paramètres : catégories, préférences, données
- */
 
-// ─── Données initiales ───────────────────────────────────────────────────────
 let categories = [
     { id: 1, name: 'Logement',      color: '#4a7cff', subcategories: ['Loyer', 'Charges (eau, électricité, gaz)', 'Internet'] },
     { id: 2, name: 'Transport',     color: '#22c55e', subcategories: ['Essence', 'Transports en commun', 'Entretien véhicule', 'Assurance auto'] },
@@ -18,7 +13,6 @@ let currentCategoryId = 1;
 let nextId = 8;
 let selectedColor = '#4a7cff';
 
-// ─── Persistance ─────────────────────────────────────────────────────────────
 function loadData() {
     const saved = localStorage.getItem('financeCategories');
     if (saved) {
@@ -34,8 +28,6 @@ function saveData() {
     localStorage.setItem('financeCategories', JSON.stringify(categories));
     localStorage.setItem('financeNextId', nextId.toString());
 }
-
-// ─── Onglets ──────────────────────────────────────────────────────────────────
 function initTabs() {
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
@@ -49,7 +41,7 @@ function initTabs() {
     });
 }
 
-// ─── Rendu de la liste des catégories ────────────────────────────────────────
+
 function renderCategoriesList() {
     const container = document.getElementById('categories-items');
     if (!container) return;
@@ -67,25 +59,23 @@ function renderCategoriesList() {
     `).join('');
 }
 
-// ─── Rendu du panneau d'édition ───────────────────────────────────────────────
-function renderEditPanel() {
     const cat = categories.find(c => c.id === currentCategoryId);
-    if (!cat) return;
+
 
     const nameInput = document.getElementById('cat-name-input');
     if (nameInput) nameInput.value = cat.name;
 
     selectedColor = cat.color;
 
-    // Couleurs
+ 
     document.querySelectorAll('.color-option').forEach(opt => {
         opt.classList.remove('active');
         if (opt.dataset.color === cat.color) opt.classList.add('active');
     });
 
-    // Sous-catégories
+
     renderSubcategories(cat);
-}
+
 
 function renderSubcategories(cat) {
     const list = document.getElementById('subcategories-list');
@@ -110,14 +100,14 @@ function renderSubcategories(cat) {
     `).join('');
 }
 
-// ─── Sélection catégorie ──────────────────────────────────────────────────────
+
 function selectCategoryById(id) {
     currentCategoryId = id;
     renderCategoriesList();
     renderEditPanel();
 }
 
-// ─── Actions couleur ──────────────────────────────────────────────────────────
+
 function initColorPicker() {
     document.querySelectorAll('.color-option').forEach(opt => {
         opt.addEventListener('click', () => {
@@ -128,7 +118,6 @@ function initColorPicker() {
     });
 }
 
-// ─── Sous-catégories ─────────────────────────────────────────────────────────
 function editSubcat(idx) {
     const cat = categories.find(c => c.id === currentCategoryId);
     if (!cat) return;
@@ -152,9 +141,9 @@ function deleteSubcat(idx) {
     }
 }
 
-// ─── Boutons principaux ───────────────────────────────────────────────────────
+
 function initButtons() {
-    // Nouvelle catégorie
+   
     const btnNew = document.getElementById('btn-new-cat');
     if (btnNew) {
         btnNew.addEventListener('click', () => {
@@ -169,7 +158,7 @@ function initButtons() {
         });
     }
 
-    // Nouvelle sous-catégorie
+ 
     const btnNewSub = document.getElementById('btn-new-subcat');
     if (btnNewSub) {
         btnNewSub.addEventListener('click', () => {
@@ -184,7 +173,7 @@ function initButtons() {
         });
     }
 
-    // Enregistrer catégorie
+  
     const btnSave = document.getElementById('btn-save-cat');
     if (btnSave) {
         btnSave.addEventListener('click', () => {
@@ -199,7 +188,7 @@ function initButtons() {
         });
     }
 
-    // Supprimer catégorie
+   
     const btnDelete = document.getElementById('btn-delete-cat');
     if (btnDelete) {
         btnDelete.addEventListener('click', () => {
@@ -214,7 +203,7 @@ function initButtons() {
     }
 
 
-    // Exporter données
+
     const btnExport = document.getElementById('btn-export');
     if (btnExport) {
         btnExport.addEventListener('click', () => {
@@ -234,7 +223,6 @@ function initButtons() {
         });
     }
 
-    // Réinitialiser
     const btnReset = document.getElementById('btn-reset');
     if (btnReset) {
         btnReset.addEventListener('click', () => {
@@ -248,7 +236,7 @@ function initButtons() {
     }
 }
 
-// ─── Toast notification ───────────────────────────────────────────────────────
+
 function showToast(msg) {
     let toast = document.getElementById('settings-toast');
     if (!toast) {
@@ -271,16 +259,15 @@ function showToast(msg) {
     toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 3000);
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
     initTabs();
     initColorPicker();
     initButtons();
     renderCategoriesList();
-    renderEditPanel();
 
-    // Restaurer préférences
+   
     const currency = localStorage.getItem('pref_currency');
     const lang     = localStorage.getItem('pref_lang');
     if (currency) { const el = document.getElementById('pref-currency'); if (el) el.value = currency; }

@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return card;
     }
 
-    // Render goals
+
     function renderGoals() {
         const goals = getGoals();
         if (goalsContainer) {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Add event listeners
+
             document.querySelectorAll('.edit-goal').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = this.dataset.id;

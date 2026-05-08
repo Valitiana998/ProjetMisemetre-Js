@@ -72,12 +72,12 @@ function getNextOccurrence(dateString, frequency) {
     const now = new Date();
     let nextDate = new Date(baseDate);
 
-    // Si la date de base est dans le futur, on la garde
+
     if (baseDate >= now) {
         return baseDate;
     }
 
-    // Sinon, on projette dans le futur selon la fréquence
+  
     switch (frequency) {
         case 'Hebdomadaire':
             while (nextDate < now) {
@@ -127,10 +127,10 @@ function getUpcomingExpenses(filter = 'all') {
             return;
         }
 
-        // Calculer la prochaine occurrence
+
         const nextDate = getNextOccurrence(expense.date, expense.frequency);
         
-        // Si la prochaine occurrence est dans les 30 prochains jours
+   
         if (nextDate && isWithinNext30Days(nextDate)) {
             upcoming.push({
                 ...expense,
@@ -140,22 +140,22 @@ function getUpcomingExpenses(filter = 'all') {
         }
     });
 
-    // Trier par date croissante
+
     return upcoming.sort((a, b) => a.nextOccurrence - b.nextOccurrence);
 }
 
-// === AFFICHAGE DANS L'INTERFACE ===
 
-// Mettre à jour les cartes de résumé
+
+
 function updateSummaryCards(expenses) {
     const totalMonth = expenses.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
     const totalCount = expenses.length;
     
-    // Total à payer ce mois
+
     document.getElementById('total-month').textContent = `${formatAmount(totalMonth)} Ar`;
     document.getElementById('total-count').textContent = `${totalCount} prélèvement${totalCount > 1 ? 's' : ''}`;
     
-    // Prochain paiement
+
     if (expenses.length > 0) {
         const next = expenses[0];
         document.getElementById('next-payment-title').textContent = next.libelle || next.category || 'Sans titre';
@@ -165,14 +165,14 @@ function updateSummaryCards(expenses) {
         document.getElementById('next-payment-date').textContent = 'Aucune charge prévue';
     }
     
-    // Solde projeté (simplifié - à adapter avec vos revenus)
-    const projectedBalance = -totalMonth; // À remplacer par: revenus - dépenses
+
+    const projectedBalance = -totalMonth;
     const balanceEl = document.getElementById('projected-balance');
     balanceEl.textContent = `${projectedBalance >= 0 ? '+' : '-'}${formatAmount(projectedBalance)} Ar`;
     balanceEl.className = `card-value ${projectedBalance >= 0 ? 'green' : 'red'}`;
 }
 
-// Générer un élément de timeline pour une dépense
+
 function createTimelineItem(expense) {
     const icon = categoryIcons[expense.category] || '📌';
     const day = expense.nextOccurrence.getDate();
@@ -212,7 +212,7 @@ function createTimelineItem(expense) {
     `;
 }
 
-// Afficher la timeline des dépenses
+
 function renderTimeline(expenses) {
     const timeline = document.getElementById('timeline');
     
@@ -238,7 +238,7 @@ function renderTimeline(expenses) {
     timeline.innerHTML = expenses.map(createTimelineItem).join('');
 }
 
-// === GESTION DES FILTRES ===
+
 
 function setupFilters() {
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -258,18 +258,16 @@ function setupFilters() {
     });
 }
 
-// === INITIALISATION ===
+
 
 function initReports() {
-    // Charger et afficher les données
     const expenses = getUpcomingExpenses('all');
     updateSummaryCards(expenses);
     renderTimeline(expenses);
     
-    // Activer les filtres
+
     setupFilters();
-    
-    // Rafraîchir automatiquement si le stockage change (onglets multiples)
+  
     window.addEventListener('storage', (e) => {
         if (e.key === 'expenses') {
             const expenses = getUpcomingExpenses('all');
@@ -281,7 +279,7 @@ function initReports() {
     console.log('📊 Reports initialisés -', expenses.length, 'dépenses à venir');
 }
 
-// Lancer l'initialisation quand le DOM est prêt
+
 document.addEventListener('DOMContentLoaded', initReports);
 
 // Export pour utilisation externe si nécessaire
