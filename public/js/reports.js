@@ -226,7 +226,7 @@ function renderTimeline(expenses) {
             <div class="timeline-empty">
                 <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
                 <p style="color: #666; font-size: 1.1rem;">Aucune dépense prévue dans les 30 prochains jours</p>
-                <a href="../html/addDepenese.html" class="btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <a href="addDepenese.html" class="btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
                     <span>+</span> Ajouter une charge
                 </a>
                 </button>

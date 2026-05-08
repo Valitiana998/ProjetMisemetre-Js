@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ar Finance Manager - Tableau de bord</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="public/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -16,11 +16,11 @@
             </div>
             <nav class="sidebar-menu">
                 <a href="index.html" class="menu-item active">Tableau de Bord</a>
-                <a href="transactions.html" class="menu-item ">Budget</a>
-                <a href="goals.html" class="menu-item ">Objectif</a>
-                <a href="reports.html" class="menu-item ">À venir</a>
-                <a href="historique.html" class="menu-item ">Historique</a>
-                <a href="settings.html" class="menu-item ">Paramètres</a>
+                <a href="public/html/transactions.html" class="menu-item ">Budget</a>
+                <a href="public/html/goals.html" class="menu-item ">Objectif</a>
+                <a href="public/html/reports.html" class="menu-item ">À venir</a>
+                <a href="public/html/historique.html" class="menu-item ">Historique</a>
+                <a href="public/html/settings.html" class="menu-item ">Paramètres</a>
             </nav>
         </aside>
 
@@ -76,7 +76,7 @@
                 <div class="right-section">
                     <!-- Coming Week -->
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                        <a href="reports.html" style="font-size:13px; color:#6ba0ff; text-decoration:none;">Voir tout →</a>
+                        <a href="public/html/reports.html" style="font-size:13px; color:#6ba0ff; text-decoration:none;">Voir tout →</a>
                     </div>
                     <div class="card upcoming-card">
                         <div class="upcoming-list" id="upcomingList">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                        <a href="goals.html" style="font-size:13px; color:#6ba0ff; text-decoration:none;">Voir tout →</a>
+                        <a href="public/html/goals.html" style="font-size:13px; color:#6ba0ff; text-decoration:none;">Voir tout →</a>
                     </div>
                     <!-- Objectives -->
                     <div class="card objectives-card">
@@ -98,7 +98,7 @@
             <div class="card transactions-dashboard-card" style="margin-top: 20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
                     <h3 style="margin-bottom:0;">Transactions du mois</h3>
-                    <a href="historique.html" style="font-size:13px; color:#6ba0ff; text-decoration:none;">Voir tout →</a>
+                    <a href="public/html/historique.html" style="font-size:13px; color:#6ba0ff; text-decoration:none;">Voir tout →</a>
                 </div>
                 <div id="allTransactionsList">
                     <p style="color:#a0a0a0;font-size:13px;text-align:center;padding:16px 0">Aucune transaction ce mois</p>
@@ -108,9 +108,9 @@
     </div>
 
     <!-- Floating Action Button -->
-    <a href="transactions.html" class="fab" title="Ajouter une transaction">+</a>
+    <a href="public/html/transactions.html" class="fab" title="Ajouter une transaction">+</a>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="public/js/main.js"></script>
+    <script src="public/js/dashboard.js"></script>
 </body>
 </html>
